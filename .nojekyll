@@ -1,3 +1,0 @@
-# This file tells GitHub Pages not to process the site with Jekyll
-# Since we're using Jekyll, we actually want GitHub Pages to process it
-# But this file ensures that GitHub Pages uses the Jekyll configuration from our repo
