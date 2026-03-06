@@ -31,10 +31,9 @@ ECONews/
 │   └── post.html       # Blog post layout
 ├── _includes/          # Reusable components
 ├── _posts/             # Blog posts (Markdown files)
-├── _sass/              # Sass styles
-│   └── main.scss       # Main stylesheet
 ├── assets/             # Static assets
-│   ├── css/           # Compiled CSS
+│   ├── css/           # CSS styles
+│   │   └── main.css   # Main stylesheet
 │   ├── js/            # JavaScript
 │   └── images/        # Images
 └── README.md          # This file
