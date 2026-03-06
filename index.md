@@ -43,8 +43,8 @@ title: Home
             <div class="post-excerpt">
               {{ text_after | truncatewords: 60 }}
             </div>
-            <a href="{{ post.url | relative_url }}" class="read-more" aria-label="Read full analysis of {{ post.title }}">
-              Read Analysis <i class="fas fa-arrow-right"></i>
+            <a href="{{ post.url | relative_url }}" class="read-more" aria-label="Read more of {{ post.title }}">
+              Read more <i class="fas fa-arrow-right"></i>
             </a>
           </article>
         {% endfor %}
