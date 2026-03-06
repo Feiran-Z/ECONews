@@ -17,6 +17,9 @@ plugins:
   - jekyll-sitemap
   - jekyll-paginate
 
+# Jekyll 4.x requires explicit gem installation
+remote_theme: jekyll/minima
+
 # Exclude from processing
 exclude:
   - Gemfile
