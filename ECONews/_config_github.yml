@@ -2,7 +2,7 @@
 # This file is used when building on GitHub Pages
 
 # Override baseurl for GitHub Pages
-baseurl: "/ECONews"
+baseurl: "/ECONews/ECONews"
 url: "https://Feiran-Z.github.io"
 
 # GitHub Pages defaults
