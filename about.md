@@ -1,69 +1,90 @@
 ---
 layout: default
 title: About
+permalink: /about/
 ---
 
-<div class="about-content">
-  <section class="about-hero">
-    <h2>About ECONews</h2>
-    <p class="subtitle">An IB Economics Companion Site</p>
-  </section>
+# About ECONews
 
-  <section class="about-description">
-    <h3>Our Mission</h3>
-    <p>ECONews bridges the gap between theoretical economics and real-world events. We provide IB Economics students with timely analysis of current economic news, connecting each story to the theories, models, and frameworks covered in the IB Economics syllabus.</p>
+ECONews is an IB Economics companion website designed to bridge the gap between current economic events and the International Baccalaureate (IB) Economics syllabus. Our mission is to provide IB Economics students with timely, relevant economic news analysis that connects real-world events to the theories and frameworks they study in class.
 
-    <h3>Why ECONews?</h3>
-    <p>The International Baccalaureate (IB) Economics curriculum emphasizes the application of economic theory to real-world situations. However, students often struggle to find relevant, current examples that illustrate the concepts they're learning. ECONews solves this problem by:</p>
+## Our Purpose
 
-    <ul>
-      <li><strong>Selecting relevant news:</strong> We curate economic news articles that align with IB Economics topics</li>
-      <li><strong>Providing structured analysis:</strong> Each article is analyzed using IB Economics frameworks</li>
-      <li><strong>Connecting theory to practice:</strong> We explicitly link news events to specific syllabus topics</li>
-      <li><strong>Supporting evaluation skills:</strong> Our analysis models the critical evaluation expected in IB assessments</li>
-    </ul>
+As an IB Economics student, you're expected to:
+- Analyze real-world economic situations
+- Apply economic theories to current events
+- Evaluate economic policies and their impacts
+- Develop critical thinking about economic issues
 
-    <h3>How It Works</h3>
-    <p>Each week, our team:</p>
+ECONews helps you achieve these learning objectives by providing carefully selected news articles with explicit connections to the IB Economics syllabus.
 
-    <ol>
-      <li><strong>Selects relevant articles:</strong> We scan major economic news sources for stories that illustrate IB Economics concepts</li>
-      <li><strong>Analyzes using IB frameworks:</strong> We apply relevant economic theories, models, and diagrams</li>
-      <li><strong>Writes structured blog posts:</strong> Each post includes a summary, analysis, and connections to the syllabus</li>
-      <li><strong>Tags by topic:</strong> Posts are tagged with relevant IB Economics topics for easy reference</li>
-    </ol>
+## How We Work
 
-    <h3>IB Economics Syllabus Coverage</h3>
-    <p>Our analysis covers all four units of the IB Economics syllabus:</p>
+### 1. **News Selection**
+We monitor major economic news sources and select articles that:
+- Demonstrate clear connections to IB Economics topics
+- Represent significant economic developments
+- Provide opportunities for analysis and evaluation
+- Cover a diverse range of economic perspectives
 
-    <div class="syllabus-coverage">
-      <div class="unit">
-        <h4>Unit 1: Introduction to Economics</h4>
-        <p>Scarcity, choice, opportunity cost, production possibilities curve, economic systems</p>
-      </div>
+### 2. **IB Analysis**
+Each news article is accompanied by:
+- **Syllabus Links**: Explicit connections to specific IB Economics topics
+- **Key Concepts**: Identification of relevant economic concepts and theories
+- **Analysis Framework**: Structured approach to analyzing the economic situation
+- **Evaluation Points**: Critical perspectives on the economic issues
 
-      <div class="unit">
-        <h4>Unit 2: Microeconomics</h4>
-        <p>Demand and supply, market equilibrium, elasticity, market failure, government intervention</p>
-      </div>
+### 3. **Educational Value**
+Our content is designed to:
+- **Reinforce Learning**: Connect classroom theory to real-world applications
+- **Develop Skills**: Practice analysis, evaluation, and critical thinking
+- **Prepare for Assessments**: Model the type of analysis expected in IB exams
+- **Stay Current**: Keep you informed about ongoing economic developments
 
-      <div class="unit">
-        <h4>Unit 3: Macroeconomics</h4>
-        <p>National income, inflation, unemployment, economic growth, macroeconomic policies</p>
-      </div>
+## Syllabus Coverage
 
-      <div class="unit">
-        <h4>Unit 4: The Global Economy</h4>
-        <p>International trade, exchange rates, balance of payments, economic development</p>
-      </div>
-    </div>
+ECONews covers all major areas of the IB Economics syllabus:
 
-    <h3>For Students and Teachers</h3>
-    <p><strong>Students:</strong> Use ECONews to find real-world examples for your Internal Assessment (IA), Extended Essay (EE), and exam preparation. Each post provides analysis that models the critical thinking skills you need for high marks.</p>
+### **Microeconomics**
+- Markets and market failure
+- Theory of the firm and market structures
+- Resource allocation and efficiency
+- Government intervention
 
-    <p><strong>Teachers:</strong> Incorporate ECONews into your lesson plans as current, relevant case studies. Use our analysis to stimulate classroom discussion and demonstrate the application of economic theory.</p>
+### **Macroeconomics**
+- Economic activity and national income
+- Aggregate demand and aggregate supply
+- Macroeconomic objectives
+- Fiscal and monetary policy
+- International economics
 
-    <h3>Contact</h3>
-    <p>Have suggestions for news articles we should cover? Want to contribute analysis? <a href="{{ '/contact/' | relative_url }}">Get in touch with us</a>!</p>
-  </section>
-</div>
+### **International Economics**
+- International trade
+- Exchange rates
+- Balance of payments
+- Economic integration
+- Development economics
+
+### **Development Economics**
+- Economic development
+- Measuring development
+- Barriers to development
+- Growth and development strategies
+
+## Our Team
+
+ECONews is maintained by economics educators with experience teaching IB Economics and a passion for connecting classroom learning to real-world economic events. Our team includes:
+
+- **IB Economics Teachers** with years of classroom experience
+- **Economic Analysts** with expertise in current economic trends
+- **Educational Content Specialists** focused on effective learning design
+
+## Contact Us
+
+Have suggestions for news coverage? Want to contribute? Need clarification on economic concepts?
+
+Visit our [Contact page](/contact/) to get in touch with our team.
+
+---
+
+*ECONews: Connecting Current Events to IB Economics Learning*

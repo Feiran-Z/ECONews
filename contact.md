@@ -1,105 +1,83 @@
 ---
 layout: default
 title: Contact
+permalink: /contact/
 ---
 
-<div class="contact-content">
-  <section class="contact-header">
-    <h2>Contact ECONews</h2>
-    <p class="subtitle">Get in touch with suggestions, questions, or feedback</p>
-  </section>
+# Contact ECONews
 
-  <section class="contact-form-section">
-    <h3>Send Us a Message</h3>
-    <p>Have a news article you'd like us to analyze? Want to suggest improvements to the site? Use the form below to contact us.</p>
+We welcome feedback, suggestions, and questions from IB Economics students, teachers, and anyone interested in economic education. Whether you have a news suggestion, need clarification on economic concepts, or want to contribute to our content, we'd love to hear from you.
 
-    <form class="contact-form" action="https://formspree.io/f/{{ site.email }}" method="POST">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required>
-      </div>
+## Ways to Connect
 
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-      </div>
+### **Email**
+For general inquiries, content suggestions, or feedback:
+- **Primary Contact**: [zephyr.v@outlook.com](mailto:zephyr.v@outlook.com)
 
-      <div class="form-group">
-        <label for="subject">Subject</label>
-        <select id="subject" name="subject" required>
-          <option value="" disabled selected>Select a topic</option>
-          <option value="news-suggestion">News Article Suggestion</option>
-          <option value="feedback">Website Feedback</option>
-          <option value="question">Question about IB Economics</option>
-          <option value="collaboration">Collaboration Inquiry</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
+### **GitHub**
+ECONews is an open-source project hosted on GitHub:
+- **Repository**: [https://github.com/Feiran-Z/ECONews](https://github.com/Feiran-Z/ECONews)
+- **Issues**: Report bugs or suggest features via GitHub Issues
+- **Contributions**: Submit pull requests for content improvements
 
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="6" required></textarea>
-      </div>
+### **Content Suggestions**
+Have a news article you'd like us to analyze? Suggestions should:
+1. **Be Recent**: Published within the last month
+2. **Be Relevant**: Clear connection to IB Economics syllabus
+3. **Be Significant**: Represent important economic developments
+4. **Include Source**: Provide the original article URL
 
-      <div class="form-group">
-        <label for="news-url">News Article URL (if applicable)</label>
-        <input type="url" id="news-url" name="news-url" placeholder="https://example.com/news-article">
-      </div>
+### **Educational Questions**
+Need help understanding economic concepts? We can:
+- Clarify IB Economics topics
+- Explain current economic events
+- Provide additional resources for learning
+- Suggest study strategies for IB Economics
 
-      <button type="submit" class="submit-btn">Send Message</button>
-    </form>
-  </section>
+## What We Can Help With
 
-  <section class="contact-info">
-    <h3>Other Ways to Connect</h3>
+### **For Students**
+- Understanding difficult economic concepts
+- Connecting news articles to syllabus topics
+- Developing analysis and evaluation skills
+- Preparing for IB Economics assessments
+- Finding additional learning resources
 
-    <div class="contact-methods">
-      <div class="contact-method">
-        <h4>GitHub Repository</h4>
-        <p>This website is open source! Visit our GitHub repository to view the code, report issues, or contribute:</p>
-        <p><a href="https://github.com/Feiran-Z/ECONews" target="_blank" rel="noopener noreferrer">github.com/Feiran-Z/ECONews</a></p>
-      </div>
+### **For Teachers**
+- Classroom resources and teaching ideas
+- Current events for economic discussions
+- Assessment preparation materials
+- Curriculum integration suggestions
+- Professional development resources
 
-      <div class="contact-method">
-        <h4>Email</h4>
-        <p>For direct inquiries, you can email:</p>
-        <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
-      </div>
+### **For Contributors**
+- Content creation guidelines
+- Writing standards and formats
+- Editorial review process
+- Collaboration opportunities
 
-      <div class="contact-method">
-        <h4>Follow Updates</h4>
-        <p>Stay updated with new economic news analysis:</p>
-        <p><a href="{{ '/feed.xml' | relative_url }}">Subscribe to RSS Feed</a></p>
-      </div>
-    </div>
-  </section>
+## Response Time
 
-  <section class="faq">
-    <h3>Frequently Asked Questions</h3>
+We strive to respond to all inquiries within:
+- **Email**: 2-3 business days
+- **GitHub Issues**: 1-2 business days
+- **Content Suggestions**: 1 week for review
 
-    <div class="faq-item">
-      <h4>How often is new content added?</h4>
-      <p>We aim to publish new economic news analysis weekly. Each post analyzes a recent economic event using IB Economics frameworks.</p>
-    </div>
+## Privacy Note
 
-    <div class="faq-item">
-      <h4>Can I suggest news articles for analysis?</h4>
-      <p>Absolutely! We welcome suggestions from students and teachers. Use the contact form above to submit news articles you'd like us to analyze.</p>
-    </div>
+We respect your privacy:
+- We do not share contact information with third parties
+- Educational inquiries are kept confidential
+- Content suggestions may be acknowledged publicly if used
+- GitHub interactions follow standard open-source protocols
 
-    <div class="faq-item">
-      <h4>How are articles selected for analysis?</h4>
-      <p>We select articles that: 1) Illustrate key IB Economics concepts, 2) Are from reputable news sources, 3) Have clear connections to the syllabus, and 4) Are timely and relevant.</p>
-    </div>
+## Stay Updated
 
-    <div class="faq-item">
-      <h4>Can I use this content in my IB Internal Assessment?</h4>
-      <p>Yes! Our analysis can provide inspiration and examples for your IA. Remember to properly cite any sources you reference.</p>
-    </div>
+To stay informed about new content and updates:
+- **Bookmark**: [https://Feiran-Z.github.io/ECONews/](https://Feiran-Z.github.io/ECONews/)
+- **Check Regularly**: New content added weekly
+- **Share**: Tell fellow IB Economics students and teachers
 
-    <div class="faq-item">
-      <h4>Is this site affiliated with the IB Organization?</h4>
-      <p>No, ECONews is an independent educational resource created to support IB Economics students and teachers. It is not affiliated with or endorsed by the International Baccalaureate Organization.</p>
-    </div>
-  </section>
-</div>
+---
+
+*ECONews is committed to supporting IB Economics education through timely, relevant economic news analysis.*
