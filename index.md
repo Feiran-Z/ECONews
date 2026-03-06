@@ -32,8 +32,16 @@ title: Home
                 </span>
               {% endif %}
             </div>
+            {% assign full_text = post.content | strip_html %}
+            {% assign trigger = "News Summary" %}
+            {% if full_text contains trigger %}
+              {% assign parts = full_text | split: trigger %}
+              {% assign text_after = parts[1] | strip %}   <!-- text after the FIRST occurrence -->
+            {% else %}
+              {% assign text_after = full_text %}
+            {% endif %}
             <div class="post-excerpt">
-              {{ post.content | strip_html | truncatewords: 60 }}
+              {{ text_after | truncatewords: 60 }}
             </div>
             <a href="{{ post.url | relative_url }}" class="read-more" aria-label="Read full analysis of {{ post.title }}">
               Read Analysis <i class="fas fa-arrow-right"></i>
