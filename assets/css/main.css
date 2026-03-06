@@ -557,7 +557,6 @@ a:hover {
 }
 
 .read-more::after {
-  content: '→';
   transition: transform var(--transition-fast);
 }
 
@@ -630,7 +629,6 @@ a:hover {
 }
 
 .learn-more::after {
-  content: '→';
   transition: transform var(--transition-fast);
 }
 
