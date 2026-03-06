@@ -4,8 +4,8 @@ email: zephyr.v@outlook.com
 description: >-
   An IB Economics companion site that pulls recent economic news
   to be analyzed and evaluated using theories and frameworks covered in the IB syllabus.
-baseurl: "ECONews/ECONews" # Will be overridden by GitHub Pages
-url: "https://Feiran-Z.github.io/" # Will be overridden by GitHub Pages
+baseurl: "" # Will be overridden by GitHub Pages
+url: "" # Will be overridden by GitHub Pages
 github_username: Feiran-Z
 
 # Build settings
