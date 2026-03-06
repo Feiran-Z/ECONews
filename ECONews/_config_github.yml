@@ -1,0 +1,28 @@
+# GitHub Pages specific configuration
+# This file is used when building on GitHub Pages
+
+# Override baseurl for GitHub Pages
+baseurl: "/ECONews"
+url: "https://Feiran-Z.github.io"
+
+# GitHub Pages defaults
+github:
+  repository_url: "https://github.com/Feiran-Z/ECONews"
+
+# Disable some plugins that GitHub Pages doesn't support
+# GitHub Pages has its own versions of these plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+
+# GitHub Pages specific settings
+safe: true
+lsi: false
+incremental: false
+highlighter: rouge
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
