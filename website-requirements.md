@@ -107,13 +107,13 @@ tags:
 ```
 
 ### Content Guidelines
-1. **Summary Section**:
+1. **News Summary**:
    - Maximum 300 words
    - Objective summary of the news article
    - Focus on key economic facts and events
    - Avoid editorializing or personal opinions
 
-2. **IB Economics Analysis**:
+2. **IB Economics Connections**:
    - Maximum 300 words
    - Explicit connections to IB Economics syllabus topics
    - Reference specific theories and frameworks
