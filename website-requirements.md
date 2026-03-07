@@ -171,8 +171,8 @@ tags:
 
 ### 2. Analysis Methodology
 1. **Identify Syllabus Connections**: Map article content to specific IB topics
-2. **Apply Economic Theories**: Use appropriate frameworks for analysis
-3. **Develop Critical Perspectives**: Suggest evaluation points
+2. **Suggest Analytical Frameworks**: Suggest economic theories and models for article analysis
+3. **Develop Critical Perspectives**: Suggest evaluation points, examining strengths, limitations, impacts, effectiveness, and/or side-effects
 4. **Create Learning Opportunities**: Design questions for student reflection
 
 ### 3. Quality Assurance
