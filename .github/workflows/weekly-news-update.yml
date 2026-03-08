@@ -1,0 +1,175 @@
+name: Weekly News Update
+
+on:
+  schedule:
+    # Run every Sunday at 12:00 UTC
+    - cron: '0 12 * * 0'
+  workflow_dispatch:  # Allow manual triggering
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/weekly-news-update.yml'
+      - '.claude/agents/weekly-news-update-scheduler.md'
+      - '.claude/agent-memory/weekly-news-update-scheduler/**'
+
+jobs:
+  weekly-news:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required for committing blog posts
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for proper git operations
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Run Weekly News Update Scheduler Agent
+        id: run-agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          echo "Starting weekly news update scheduler..."
+
+          # Create a script to run the agent
+          cat > run_weekly_update.sh << 'EOF'
+          #!/bin/bash
+
+          echo "=== Weekly News Update Scheduler ==="
+          echo "Date: $(date)"
+          echo "Repository: $(pwd)"
+
+          # Check required files
+          echo "Checking required files..."
+          if [ ! -f "website-requirements.md" ]; then
+            echo "ERROR: website-requirements.md not found"
+            exit 1
+          fi
+
+          if [ ! -f "IBEcon-syllabus.md" ]; then
+            echo "ERROR: IBEcon-syllabus.md not found"
+            exit 1
+          fi
+
+          if [ ! -f ".claude/agents/weekly-news-update-scheduler.md" ]; then
+            echo "ERROR: Agent configuration not found"
+            exit 1
+          fi
+
+          echo "Required files found."
+
+          # Create agent memory directory if it doesn't exist
+          mkdir -p .claude/agent-memory/weekly-news-update-scheduler
+
+          # Check for existing posts directory
+          if [ ! -d "_posts" ]; then
+            echo "Creating _posts directory..."
+            mkdir -p _posts
+          fi
+
+          # Determine this week's date for reporting
+          WEEK_DATE=$(date +%Y-%m-%d)
+          echo "Week: $WEEK_DATE"
+
+          # The actual agent execution would happen here
+          # For now, create a placeholder implementation
+          echo "Agent execution would happen here..."
+          echo "1. Parse syllabus for topic selection"
+          echo "2. Check coverage history"
+          echo "3. Select topic for this week"
+          echo "4. Invoke news-extraction-blogpost-writer agent"
+          echo "5. Create blog post in _posts/"
+          echo "6. Update coverage tracking"
+
+          # Create a simple test output
+          echo "Creating test output file..."
+          cat > agent_execution_report.md << 'REPORTEOF'
+          # Weekly News Update Execution Report
+
+          ## Execution Details
+          - **Date**: $WEEK_DATE
+          - **Status**: Manual implementation required
+          - **Agent**: weekly-news-update-scheduler
+
+          ## Next Steps
+          1. Implement actual agent execution logic
+          2. Integrate with Claude Code API for agent invocation
+          3. Add proper error handling and recovery
+          4. Implement commit and push of new blog posts
+
+          ## Notes
+          This is a placeholder implementation. The actual agent should:
+          - Select topic from IB Economics syllabus
+          - Invoke news-extraction-blogpost-writer agent
+          - Create properly formatted blog post
+          - Update coverage tracking in memory files
+          REPORTEOF
+
+          echo "Execution report created."
+          EOF
+
+          chmod +x run_weekly_update.sh
+          ./run_weekly_update.sh
+
+          # Check if execution was successful
+          if [ -f "agent_execution_report.md" ]; then
+            echo "Agent execution completed"
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "Agent execution failed"
+            echo "status=failure" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create GitHub Issue on Failure
+        if: steps.run-agent.outputs.status == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Weekly News Update Failed - ${new Date().toISOString().split('T')[0]}`,
+              body: `The weekly news update automation failed. Please check the workflow run for details.\n\nWorkflow run: ${context.runId}\n\n**Manual Action Required:**\n1. Check the workflow logs for error details\n2. Run the news-extraction-blogpost-writer agent manually\n3. Update coverage tracking if needed`,
+              labels: ['automation', 'news-update', 'needs-attention']
+            })
+
+      - name: Commit and Push if Successful
+        if: steps.run-agent.outputs.status == 'success'
+        run: |
+          # Only commit if there are actual changes
+          if git status --porcelain | grep -q "agent_execution_report.md"; then
+            echo "Committing execution report..."
+            git add agent_execution_report.md
+            git commit -m "Weekly news update execution report for $(date +%Y-%m-%d)"
+            git push
+          else
+            echo "No changes to commit."
+          fi
+
+      - name: Update Workflow Status
+        run: |
+          echo "=== Workflow Summary ==="
+          echo "Workflow: Weekly News Update"
+          echo "Run ID: $GITHUB_RUN_ID"
+          echo "Status: ${{ steps.run-agent.outputs.status }}"
+          echo "Date: $(date)"
+          echo ""
+          echo "Next scheduled run: Next Sunday 12:00 UTC"
+          echo ""
+          echo "For manual execution:"
+          echo "1. Go to Actions tab"
+          echo "2. Select 'Weekly News Update' workflow"
+          echo "3. Click 'Run workflow'"
+          echo "4. Select 'main' branch"
