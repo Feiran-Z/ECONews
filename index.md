@@ -24,6 +24,11 @@ title: Home
               <time datetime="{{ post.date | date_to_xmlschema }}" aria-label="Published on {{ post.date | date: '%B %d, %Y' }}">
                 {{ post.date | date: "%B %d, %Y" }}
               </time>
+              {% if post.author %}
+                <span class="post-author" aria-label="Author: {{ post.author }}">
+                  <i class="fas fa-user"></i> {{ post.author }}
+                </span>
+              {% endif %}
               {% if post.tags %}
                 <span class="post-tags">
                   {% for tag in post.tags limit: 3 %}
