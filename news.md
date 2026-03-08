@@ -10,6 +10,7 @@ permalink: /news/
     <p class="hero-subtitle">Weekly analysis of economic news using IB Economics frameworks and methodologies</p>
   </section>
 
+  {% assign paginator.posts = site.posts %}
   {% if paginator.posts.size > 0 %}
     <section class="recent-news" aria-labelledby="news-heading">
       <h3 id="news-heading"><i class="fas fa-chart-line"></i> Latest Economic News Analysis</h3>
