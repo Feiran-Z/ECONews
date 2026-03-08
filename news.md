@@ -30,16 +30,16 @@ permalink: /news/
                 </span>
               {% endif %}
             </div>
+            {% assign full_text = post.content | strip_html %}
+            {% assign trigger = "News Summary" %}
+            {% if full_text contains trigger %}
+              {% assign parts = full_text | split: trigger %}
+              {% assign text_after = parts[1] | strip %}   <!-- text after the FIRST occurrence -->
+            {% else %}
+              {% assign text_after = full_text %}
+            {% endif %}
             <div class="post-excerpt">
-              {% assign excerpt = post.content | strip_html %}
-              {% assign lines = excerpt | split: '.' %}
-              {% assign first_five_lines = '' %}
-              {% for i in (0..4) %}
-                {% if lines[i] %}
-                  {% assign first_five_lines = first_five_lines | append: lines[i] | append: '.' %}
-                {% endif %}
-              {% endfor %}
-              {{ first_five_lines | truncatewords: 100 }}
+              {{ text_after | truncatewords: 60 }}
             </div>
             {% if post.tags %}
               <div class="post-tags">
