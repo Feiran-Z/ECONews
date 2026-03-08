@@ -41,6 +41,10 @@ jobs:
         env:
           ANTHROPIC_BASE_URL: https://api.deepseek.com/anthropic
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: deepseek-chat
+          ANTHROPIC_SMALL_FAST_MODEL: deepseek-chat
+          # Optional: set a timeout to prevent long runs from failing
+          API_TIMEOUT_MS: 600000 # 10 minutes timeout
         run: |
           echo "Starting weekly news update scheduler..."
 
