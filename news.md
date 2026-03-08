@@ -61,7 +61,7 @@ permalink: /news/
       <div class="no-posts-content">
         <i class="fas fa-newspaper"></i>
         <h3>No News Articles Yet</h3>
-        <p>Check back soon for weekly economic news analysis updates!</p>
+        <p>Check back soon for weekly economic news updates!</p>
         <a href="{{ '/' | relative_url }}" class="back-home">
           <i class="fas fa-home"></i> Return to Home
         </a>
