@@ -39,8 +39,7 @@ jobs:
       - name: Run Weekly News Update Scheduler Agent
         id: run-agent
         env:
-          ANTHROPIC_BASE_URL: https://api.deepseek.com/anthropic
-          ANTHROPIC_API_KEY: "sk-d9ef7cd92a4646509edaff853a917287"
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           echo "Starting weekly news update scheduler..."
 
