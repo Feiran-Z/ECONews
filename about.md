@@ -7,7 +7,7 @@ permalink: /about/
 <div class="page-content">
   <section class="hero" aria-labelledby="about-hero-heading">
     <h2 id="about-hero-heading"><i class="fas fa-info-circle"></i> About ECONews</h2>
-    <p class="hero-subtitle">Your companion for analyzing current economic events through the lens of IB Economics. We bridge the gap between academic theory and real-world economic developments.</p>
+    <p class="hero-subtitle">Your companion for real-world examples connecting to IB Economics syllabus.</p>
   </section>
 
   <section class="content-section" aria-labelledby="purpose-heading">
