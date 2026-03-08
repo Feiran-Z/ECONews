@@ -49,7 +49,7 @@ permalink: /news/
               </div>
             {% endif %}
             <a href="{{ post.url | relative_url }}" class="read-more" aria-label="Read full analysis of {{ post.title }}">
-              Read Analysis <i class="fas fa-arrow-right"></i>
+              Read more <i class="fas fa-arrow-right"></i>
             </a>
           </article>
         {% endfor %}
