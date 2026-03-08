@@ -16,7 +16,7 @@ tags:
 
 China has significantly reduced its anti-dumping tariff on Canadian canola from a preliminary rate of 75.8% to a final rate of 5.9% following a 17-month investigation. The decision, announced on February 28, 2026, comes amid improving diplomatic relations between Beijing and Ottawa. The anti-dumping duty will be effective from March 1, 2026, and will last for five years. In addition to the anti-dumping duty, Canadian canola remains subject to China's standard 9% import tariff, bringing the total effective duty to 14.9%. This outcome aligns with Canadian Prime Minister Mark Carney's expectations following his January visit to Beijing, where he anticipated a total tariff rate of around 15%. China was Canada's second-largest market for canola in 2024, making this decision economically significant for Canadian agricultural exporters. The tariff reduction follows China's announcement that it would suspend some tariffs on Canadian agricultural products imposed during previous trade tensions.
 
-## IB Economics Analysis
+## IB Economics Connections
 
 This news article provides excellent material for analyzing several key concepts from the IB Economics syllabus, particularly from **Unit 4: The Global Economy** and **Unit 2: Microeconomics**.
 
