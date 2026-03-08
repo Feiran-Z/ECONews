@@ -29,6 +29,13 @@ permalink: /news/
                   <i class="fas fa-user"></i> {{ post.author }}
                 </span>
               {% endif %}
+              {% if post.tags %}
+                <span class="post-tags">
+                  {% for tag in post.tags limit: 3 %}
+                    <span class="tag" aria-label="Tag: {{ tag }}">{{ tag }}</span>
+                  {% endfor %}
+                </span>
+              {% endif %}
             </div>
             {% assign full_text = post.content | strip_html %}
             {% assign trigger = "News Summary" %}
@@ -41,13 +48,6 @@ permalink: /news/
             <div class="post-excerpt">
               {{ text_after | truncatewords: 60 }}
             </div>
-            {% if post.tags %}
-              <div class="post-tags">
-                {% for tag in post.tags limit: 3 %}
-                  <span class="tag" aria-label="Tag: {{ tag }}">{{ tag }}</span>
-                {% endfor %}
-              </div>
-            {% endif %}
             <a href="{{ post.url | relative_url }}" class="read-more" aria-label="Read full analysis of {{ post.title }}">
               Read more <i class="fas fa-arrow-right"></i>
             </a>
