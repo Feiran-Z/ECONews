@@ -12,7 +12,7 @@ title: Home
   <section class="recent-news" aria-labelledby="news-heading">
     <h3 id="news-heading"><i class="fas fa-chart-line"></i> Latest Economic News Analysis</h3>
 
-    {% assign latest_posts = site.posts | limit: 5 %}
+    {% assign latest_posts = site.posts | limit: 4 %}
     {% if latest_posts.size > 0 %}
       <div class="news-grid">
         {% for post in latest_posts %}

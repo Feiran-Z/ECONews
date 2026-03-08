@@ -28,7 +28,7 @@ ECONews is an IB Economics companion website designed to bridge the gap between 
 
 #### Home Page (`index.md`)
 - Hero section with website introduction
-- Featured news articles (latest 5 posts)
+- Featured news articles (latest 4 posts)
 - About preview section
 - Clear calls to action
 
