@@ -34,7 +34,7 @@ jobs:
           echo "Model: $ANTHROPIC_MODEL"
 
       - name: Run Weekly News Update Scheduler Agent
-        id: scheduler-agent
+        id: weekly-news-update-scheduler
         env:
           ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL || 'https://api.anthropic.com' }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -121,8 +121,8 @@ jobs:
           echo "subtopic=$SUBTOPIC" >> $GITHUB_OUTPUT
 
       - name: Invoke News Extraction Blogpost Writer Agent
-        id: news-agent
-        if: steps.scheduler-agent.outputs.topic != ''
+        id: news-extraction-blogpost-writer
+        if: steps.weekly-news-update-scheduler.outputs.topic != ''
         env:
           ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL || 'https://api.anthropic.com' }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -130,8 +130,8 @@ jobs:
           ANTHROPIC_SMALL_FAST_MODEL: ${{ secrets.ANTHROPIC_SMALL_FAST_MODEL || 'claude-3-haiku-20240307' }}
         run: |
           echo "=== Invoking News Extraction Blogpost Writer Agent ==="
-          echo "Topic: ${{ steps.scheduler-agent.outputs.topic }}"
-          echo "Subtopic: ${{ steps.scheduler-agent.outputs.subtopic }}"
+          echo "Topic: ${{ steps.weekly-news-update-scheduler.outputs.topic }}"
+          echo "Subtopic: ${{ steps.weekly-news-update-scheduler.outputs.subtopic }}"
 
           # Create agent invocation script
           cat > invoke_agent.sh << 'EOF'
@@ -141,8 +141,8 @@ jobs:
           # The actual agent invocation would happen here
           # For demonstration, we'll create a simple blog post
           DATE=$(date +%Y-%m-%d)
-          TOPIC="${{ steps.scheduler-agent.outputs.topic }}"
-          SUBTOPIC="${{ steps.scheduler-agent.outputs.subtopic }}"
+          TOPIC="${{ steps.weekly-news-update-scheduler.outputs.topic }}"
+          SUBTOPIC="${{ steps.weekly-news-update-scheduler.outputs.subtopic }}"
 
           # Create a sample blog post
           cat > "_posts/${DATE}-${TOPIC// /-}-sample.md" << 'POSTEOF'
@@ -166,7 +166,7 @@ jobs:
 
           The agent would find actual news articles from reputable sources like Reuters, BBC, or The New York Times, then write a 300-word summary of the main economic issue, event, or policy discussed in the article.
 
-          ## IB Economics Analysis
+          ## IB Economics Connections
 
           This topic relates to the IB Economics syllabus, specifically connecting to $TOPIC concepts. In a real implementation, the agent would provide explicit connections to IB Economics syllabus topics, suggest relevant economic theories and frameworks for analysis, and offer evaluation points for critical thinking.
 
@@ -186,7 +186,7 @@ jobs:
           ./invoke_agent.sh
 
       - name: Create GitHub Issue on Failure
-        if: steps.news-agent.outputs.status != 'success' || failure()
+        if: steps.news-extraction-blogpost-writer.outputs.status != 'success' || failure()
         uses: actions/github-script@v7
         with:
           script: |
@@ -199,12 +199,12 @@ jobs:
               labels: ['automation', 'news-update', 'needs-attention']
             })
       - name: Update Coverage Tracking
-        if: steps.news-agent.outputs.status == 'success'
+        if: steps.news-extraction-blogpost-writer.outputs.status == 'success'
         run: |
           echo "=== Updating Coverage Tracking ==="
           DATE=$(date +%Y-%m-%d)
-          TOPIC="${{ steps.scheduler-agent.outputs.topic }}"
-          SUBTOPIC="${{ steps.scheduler-agent.outputs.subtopic }}"
+          TOPIC="${{ steps.weekly-news-update-scheduler.outputs.topic }}"
+          SUBTOPIC="${{ steps.weekly-news-update-scheduler.outputs.subtopic }}"
 
           # Create or update coverage tracking file
           COVERAGE_FILE=".claude/agent-memory/weekly-news-update-scheduler/topic-rotation-schedule.md"
@@ -261,13 +261,13 @@ jobs:
           echo "Workflow: $GITHUB_WORKFLOW"
           echo "Run ID: $GITHUB_RUN_ID"
           echo "Date: $(date)"
-          echo "Status: ${{ steps.news-agent.outputs.status || 'unknown' }}"
+          echo "Status: ${{ steps.news-extraction-blogpost-writer.outputs.status || 'unknown' }}"
           echo ""
 
-          if [ "${{ steps.news-agent.outputs.status }}" = "success" ]; then
+          if [ "${{ steps.news-extraction-blogpost-writer.outputs.status }}" = "success" ]; then
             echo "✅ Successfully created weekly blog post"
-            echo "Topic: ${{ steps.scheduler-agent.outputs.topic }}"
-            echo "Subtopic: ${{ steps.scheduler-agent.outputs.subtopic }}"
+            echo "Topic: ${{ steps.weekly-news-update-scheduler.outputs.topic }}"
+            echo "Subtopic: ${{ steps.weekly-news-update-scheduler.outputs.subtopic }}"
             echo "Agent used: news-extraction-blogpost-writer"
           else
             echo "❌ Workflow failed - check logs for details"
