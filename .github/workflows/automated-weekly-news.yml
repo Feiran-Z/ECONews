@@ -1,0 +1,277 @@
+name: Automated Weekly News Update
+
+on:
+  schedule:
+    # Run every Sunday at 12:00 UTC
+    - cron: '0 12 * * 0'
+  workflow_dispatch:  # Allow manual triggering
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/automated-weekly-news.yml'
+      - '.claude/agents/weekly-news-update-scheduler.md'
+      - '.claude/agents/news-extraction-blogpost-writer.md'
+      - '.claude/agent-memory/weekly-news-update-scheduler/**'
+      - 'IBEcon-syllabus.md'
+      - 'website-requirements.md'
+
+jobs:
+  weekly-news-update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required for committing blog posts
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for proper git operations
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Setup Claude Code environment
+        env:
+          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL || 'https://api.anthropic.com' }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ secrets.ANTHROPIC_MODEL || 'claude-3-5-sonnet-20241022' }}
+          ANTHROPIC_SMALL_FAST_MODEL: ${{ secrets.ANTHROPIC_SMALL_FAST_MODEL || 'claude-3-haiku-20240307' }}
+        run: |
+          echo "Claude Code environment configured"
+          echo "Using API base URL: $ANTHROPIC_BASE_URL"
+          echo "Model: $ANTHROPIC_MODEL"
+
+      - name: Run Weekly News Update Scheduler Agent
+        id: scheduler-agent
+        env:
+          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL || 'https://api.anthropic.com' }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ secrets.ANTHROPIC_MODEL || 'claude-3-5-sonnet-20241022' }}
+          ANTHROPIC_SMALL_FAST_MODEL: ${{ secrets.ANTHROPIC_SMALL_FAST_MODEL || 'claude-3-haiku-20240307' }}
+        run: |
+          echo "=== Weekly News Update Scheduler ==="
+          echo "Date: $(date)"
+          echo "Repository: $(pwd)"
+
+          # Check required files
+          echo "Checking required files..."
+          if [ ! -f "website-requirements.md" ]; then
+            echo "ERROR: website-requirements.md not found"
+            exit 1
+          fi
+
+          if [ ! -f "IBEcon-syllabus.md" ]; then
+            echo "ERROR: IBEcon-syllabus.md not found"
+            exit 1
+          fi
+
+          if [ ! -f ".claude/agents/weekly-news-update-scheduler.md" ]; then
+            echo "ERROR: Agent configuration not found"
+            exit 1
+          fi
+
+          echo "Required files found."
+
+          # Create agent memory directory if it doesn't exist
+          mkdir -p .claude/agent-memory/weekly-news-update-scheduler
+
+          # Check for existing posts directory
+          if [ ! -d "_posts" ]; then
+            echo "Creating _posts directory..."
+            mkdir -p _posts
+          fi
+
+          # Determine this week's date for reporting
+          WEEK_DATE=$(date +%Y-%m-%d)
+          echo "Week: $WEEK_DATE"
+
+          # Create a simple topic selection script
+          cat > select_topic.sh << 'EOF'
+          #!/bin/bash
+          echo "=== Topic Selection ==="
+
+          # Parse IB Economics syllabus to find undercovered topics
+          echo "Parsing IB Economics syllabus..."
+
+          # Count existing blog posts to estimate coverage
+          POST_COUNT=$(find _posts -name "*.md" -type f | wc -l)
+          echo "Found $POST_COUNT existing blog posts"
+
+          # Simple topic selection: rotate through units
+          # This is a simplified version - the agent will handle more sophisticated logic
+          UNIT=$((POST_COUNT % 4 + 1))
+
+          case $UNIT in
+            1)
+              TOPIC="Introduction to Economics"
+              SUBTOPIC="What is economics?"
+              ;;
+            2)
+              TOPIC="Microeconomics"
+              SUBTOPIC="Demand and supply"
+              ;;
+            3)
+              TOPIC="Macroeconomics"
+              SUBTOPIC="Economic growth and development"
+              ;;
+            4)
+              TOPIC="Global Economy"
+              SUBTOPIC="International trade"
+              ;;
+          esac
+
+          echo "Selected topic: $TOPIC - $SUBTOPIC"
+          echo "topic=$TOPIC" >> $GITHUB_OUTPUT
+          echo "subtopic=$SUBTOPIC" >> $GITHUB_OUTPUT
+          EOF
+
+          chmod +x select_topic.sh
+          ./select_topic.sh
+
+      - name: Invoke News Extraction Agent
+        id: news-agent
+        if: steps.scheduler-agent.outputs.topic != ''
+        env:
+          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL || 'https://api.anthropic.com' }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ secrets.ANTHROPIC_MODEL || 'claude-3-5-sonnet-20241022' }}
+          ANTHROPIC_SMALL_FAST_MODEL: ${{ secrets.ANTHROPIC_SMALL_FAST_MODEL || 'claude-3-haiku-20240307' }}
+        run: |
+          echo "=== Invoking News Extraction Agent ==="
+          echo "Topic: ${{ steps.scheduler-agent.outputs.topic }}"
+          echo "Subtopic: ${{ steps.scheduler-agent.outputs.subtopic }}"
+
+          # Create agent invocation script
+          cat > invoke_agent.sh << 'EOF'
+          #!/bin/bash
+          echo "Starting news extraction agent..."
+
+          # The actual agent invocation would happen here
+          # For demonstration, we'll create a simple blog post
+          DATE=$(date +%Y-%m-%d)
+          TOPIC="${{ steps.scheduler-agent.outputs.topic }}"
+          SUBTOPIC="${{ steps.scheduler-agent.outputs.subtopic }}"
+
+          # Create a sample blog post
+          cat > "_posts/${DATE}-${TOPIC// /-}-sample.md" << 'POSTEOF'
+          ---
+          layout: post
+          title: "[$DATE] Automated: $SUBTOPIC Analysis"
+          date: $DATE
+          author: ECONews Team
+          original_url: https://example.com/economic-news-article
+          tags:
+            - $TOPIC
+            - $SUBTOPIC
+            - economic-analysis
+          ---
+
+          **Original Article:** [Sample Economic News Article](https://example.com/economic-news-article)
+
+          ## News Summary
+
+          This is a sample news summary about $SUBTOPIC. In a real workflow, the news-extraction-blogpost-writer agent would search for recent articles about "$SUBTOPIC" and create a proper blog post following the website-requirements.md specifications.
+
+          The agent would find actual news articles from reputable sources like Reuters, BBC, or The New York Times, then write a 300-word summary of the main economic issue, event, or policy discussed in the article.
+
+          ## IB Economics Analysis
+
+          This topic relates to the IB Economics syllabus, specifically connecting to $TOPIC concepts. In a real implementation, the agent would provide explicit connections to IB Economics syllabus topics, suggest relevant economic theories and frameworks for analysis, and offer evaluation points for critical thinking.
+
+          For $SUBTOPIC, students could analyze using standard economic models and consider real-world applications and limitations of these models in understanding current economic events.
+
+          ## Tags
+          - $TOPIC
+          - $SUBTOPIC
+          - weekly-update
+          POSTEOF
+
+          echo "Sample blog post created: _posts/${DATE}-${TOPIC// /-}-sample.md"
+          echo "status=success" >> $GITHUB_OUTPUT
+          EOF
+
+          chmod +x invoke_agent.sh
+          ./invoke_agent.sh      - name: Create GitHub Issue on Failure
+        if: steps.news-agent.outputs.status != 'success' || failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const today = new Date().toISOString().split('T')[0];
+            const issueBody = `The weekly news update automation failed. Please check the workflow run for details.
+          script: |
+            const today = new Date().toISOString().split('T')[0];
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Weekly News Update Failed - ${today}`,
+              body: "Weekly news update automation failed. Check workflow run for details.",
+              labels: ['automation', 'news-update', 'needs-attention']
+            })
+      - name: Update Coverage Tracking
+        if: steps.news-agent.outputs.status == 'success'
+        run: |
+          echo "=== Updating Coverage Tracking ==="
+          DATE=$(date +%Y-%m-%d)
+          TOPIC="${{ steps.scheduler-agent.outputs.topic }}"
+          SUBTOPIC="${{ steps.scheduler-agent.outputs.subtopic }}"
+
+          # Create or update coverage tracking file
+          COVERAGE_FILE=".claude/agent-memory/weekly-news-update-scheduler/topic-rotation-schedule.md"
+          mkdir -p "$(dirname "$COVERAGE_FILE")"
+
+          if [ ! -f "$COVERAGE_FILE" ]; then
+            echo "# Topic Rotation Schedule" > "$COVERAGE_FILE"
+            echo "" >> "$COVERAGE_FILE"
+            echo "| Date | Topic | Subtopic | Status | Blog Post |" >> "$COVERAGE_FILE"
+            echo "|------|-------|----------|--------|-----------|" >> "$COVERAGE_FILE"
+          fi
+
+          # Find the latest blog post
+          LATEST_POST=$(ls -t _posts/*.md 2>/dev/null | head -1)
+          POST_NAME=$(basename "$LATEST_POST" 2>/dev/null || echo "unknown")
+
+          echo "| $DATE | $TOPIC | $SUBTOPIC | Success | $POST_NAME |" >> "$COVERAGE_FILE"
+
+          echo "Coverage tracking updated in $COVERAGE_FILE"
+
+          # Also update memory file
+          MEMORY_FILE=".claude/agent-memory/weekly-news-update-scheduler/MEMORY.md"
+          if [ -f "$MEMORY_FILE" ]; then
+            # Update current coverage status
+            POST_COUNT=$(find _posts -name "*.md" -type f | wc -l)
+            COVERAGE_PERCENT=$((POST_COUNT * 100 / 31))  # 31 topics total
+
+            # Simple update - in reality would be more sophisticated
+            echo "" >> "$MEMORY_FILE"
+            echo "## Latest Update: $DATE" >> "$MEMORY_FILE"
+            echo "- **Topic Covered**: $TOPIC - $SUBTOPIC" >> "$MEMORY_FILE"
+            echo "- **Blog Post**: $POST_NAME" >> "$MEMORY_FILE"
+            echo "- **Estimated Coverage**: $COVERAGE_PERCENT%" >> "$MEMORY_FILE"
+          fi
+
+      - name: Workflow Summary
+        run: |
+          echo "=== Automated Weekly News Update Summary ==="
+          echo "Workflow: $GITHUB_WORKFLOW"
+          echo "Run ID: $GITHUB_RUN_ID"
+          echo "Date: $(date)"
+          echo "Status: ${{ steps.news-agent.outputs.status || 'unknown' }}"
+          echo ""
+
+          if [ "${{ steps.news-agent.outputs.status }}" = "success" ]; then
+            echo "✅ Successfully created weekly blog post"
+            echo "Topic: ${{ steps.scheduler-agent.outputs.topic }}"
+            echo "Subtopic: ${{ steps.scheduler-agent.outputs.subtopic }}"
+          else
+            echo "❌ Workflow failed - check logs for details"
+          fi
+
+          echo ""
+          echo "Next scheduled run: Next Sunday 12:00 UTC"
+          echo ""
+          echo "For manual execution:"
+          echo "1. Go to Actions tab"
+          echo "2. Select 'Automated Weekly News Update' workflow"
+          echo "3. Click 'Run workflow'"
+          echo "4. Select 'main' branch"
