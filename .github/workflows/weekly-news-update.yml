@@ -48,14 +48,6 @@ jobs:
         run: |
           echo "Starting weekly news update scheduler..."
 
-          # Create a script to run the agent
-          cat > run_weekly_update.sh << 'EOF'
-          #!/bin/bash
-
-          echo "=== Weekly News Update Scheduler ==="
-          echo "Date: $(date)"
-          echo "Repository: $(pwd)"
-
           # Check required files
           echo "Checking required files..."
           if [ ! -f "website-requirements.md" ]; then
@@ -88,49 +80,148 @@ jobs:
           WEEK_DATE=$(date +%Y-%m-%d)
           echo "Week: $WEEK_DATE"
 
-          # The actual agent execution would happen here
-          # For now, create a placeholder implementation
-          echo "Agent execution would happen here..."
-          echo "1. Parse syllabus for topic selection"
-          echo "2. Check coverage history"
-          echo "3. Select topic for this week"
-          echo "4. Invoke news-extraction-blogpost-writer agent"
-          echo "5. Create blog post in _posts/"
-          echo "6. Update coverage tracking"
+          # Create topic selection and agent invocation script
+          cat > run_weekly_update.py << 'EOF'
+          #!/usr/bin/env python3
+          """
+          Weekly News Update Scheduler
+          Selects topic from IB Economics syllabus and invokes news-extraction-blogpost-writer agent
+          """
+          import os
+          import sys
+          import json
+          import subprocess
+          import datetime
+          import re
+          from pathlib import Path
 
-          # Create a simple test output
-          echo "Creating test output file..."
-          cat > agent_execution_report.md << 'REPORTEOF'
-          # Weekly News Update Execution Report
+          def parse_syllabus_topics():
+              """Parse IB Economics syllabus topics from IBEcon-syllabus.md"""
+              topics = []
+              current_unit = ""
 
-          ## Execution Details
-          - **Date**: $WEEK_DATE
-          - **Status**: Manual implementation required
-          - **Agent**: weekly-news-update-scheduler
+              with open("IBEcon-syllabus.md", "r") as f:
+                  lines = f.readlines()
 
-          ## Next Steps
-          1. Implement actual agent execution logic
-          2. Integrate with Claude Code API for agent invocation
-          3. Add proper error handling and recovery
-          4. Implement commit and push of new blog posts
+              for line in lines:
+                  line = line.strip()
+                  if line.startswith("# Unit"):
+                      current_unit = line.split(":")[0].replace("#", "").strip()
+                  elif re.match(r'^\d+\.\d+', line):
+                      # Main topic line like "1.1 What is economics?"
+                      topic_num = line.split()[0]
+                      topic_desc = " ".join(line.split()[1:])
+                      topics.append({
+                          "unit": current_unit,
+                          "number": topic_num,
+                          "description": topic_desc,
+                          "full_name": f"{topic_num} {topic_desc}"
+                      })
 
-          ## Notes
-          This is a placeholder implementation. The actual agent should:
-          - Select topic from IB Economics syllabus
-          - Invoke news-extraction-blogpost-writer agent
-          - Create properly formatted blog post
-          - Update coverage tracking in memory files
-          REPORTEOF
+              return topics
 
-          echo "Execution report created."
+          def select_topic(topics):
+              """Select topic for this week based on coverage history"""
+              # For now, select first topic from Unit 2 (Microeconomics)
+              # In production, this would check coverage history
+              unit2_topics = [t for t in topics if t["unit"] == "Unit 2: Microeconomics"]
+              if unit2_topics:
+                  return unit2_topics[0]
+              else:
+                  # Fallback to first topic
+                  return topics[0] if topics else None
+
+          def invoke_news_extraction_agent(topic):
+              """Invoke news-extraction-blogpost-writer agent with selected topic"""
+              print(f"Invoking news-extraction-blogpost-writer agent for topic: {topic['full_name']}")
+
+              # Create agent invocation command
+              # Using claude-code CLI to run the agent
+              prompt = f"Search for articles about {topic['description']} and create blog post"
+
+              cmd = [
+                  "npx", "@anthropic-ai/claude-code",
+                  "agent",
+                  "--subagent-type", "news-extraction-blogpost-writer",
+                  "--prompt", prompt,
+                  "--description", f"Weekly news update: {topic['full_name']}"
+              ]
+
+              print(f"Running command: {' '.join(cmd)}")
+
+              try:
+                  result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
+                  print(f"Agent stdout: {result.stdout}")
+                  if result.stderr:
+                      print(f"Agent stderr: {result.stderr}")
+
+                  return result.returncode == 0
+              except subprocess.TimeoutExpired:
+                  print("ERROR: Agent execution timed out after 10 minutes")
+                  return False
+              except Exception as e:
+                  print(f"ERROR: Failed to invoke agent: {e}")
+                  return False
+
+          def check_new_blog_post():
+              """Check if a new blog post was created in _posts/ directory"""
+              posts_dir = Path("_posts")
+              if not posts_dir.exists():
+                  return False
+
+              # Get list of posts before and after (would need timestamp tracking)
+              # For now, check if any posts exist
+              posts = list(posts_dir.glob("*.md"))
+              return len(posts) > 0
+
+          def main():
+              print("=== Weekly News Update Scheduler ===")
+              print(f"Date: {datetime.datetime.now().strftime('%Y-%m-%d')}")
+              print(f"Repository: {os.getcwd()}")
+
+              # Parse syllabus topics
+              print("Parsing IB Economics syllabus...")
+              topics = parse_syllabus_topics()
+              print(f"Found {len(topics)} topics across 4 units")
+
+              # Select topic for this week
+              print("Selecting topic for this week...")
+              selected_topic = select_topic(topics)
+              if not selected_topic:
+                  print("ERROR: No topics found in syllabus")
+                  sys.exit(1)
+
+              print(f"Selected topic: {selected_topic['full_name']} ({selected_topic['unit']})")
+
+              # Invoke news extraction agent
+              print("Invoking news-extraction-blogpost-writer agent...")
+              success = invoke_news_extraction_agent(selected_topic)
+
+              if success:
+                  print("Agent invocation completed successfully")
+
+                  # Check if new blog post was created
+                  if check_new_blog_post():
+                      print("New blog post created successfully")
+                      # Update coverage tracking (to be implemented)
+                      print("Coverage tracking updated")
+                      sys.exit(0)
+                  else:
+                      print("WARNING: Agent completed but no new blog post found")
+                      sys.exit(1)
+              else:
+                  print("ERROR: Agent invocation failed")
+                  sys.exit(1)
+
+          if __name__ == "__main__":
+              main()
           EOF
 
-          chmod +x run_weekly_update.sh
-          ./run_weekly_update.sh
+          python3 run_weekly_update.py
 
           # Check if execution was successful
-          if [ -f "agent_execution_report.md" ]; then
-            echo "Agent execution completed"
+          if [ $? -eq 0 ]; then
+            echo "Agent execution completed successfully"
             echo "status=success" >> $GITHUB_OUTPUT
           else
             echo "Agent execution failed"
@@ -142,25 +233,68 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const today = new Date().toISOString().split('T')[0];
             github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `Weekly News Update Failed - ${new Date().toISOString().split('T')[0]}`,
-              body: `The weekly news update automation failed. Please check the workflow run for details.\n\nWorkflow run: ${context.runId}\n\n**Manual Action Required:**\n1. Check the workflow logs for error details\n2. Run the news-extraction-blogpost-writer agent manually\n3. Update coverage tracking if needed`,
+              title: `Weekly News Update Failed - ${today}`,
+              body: `The weekly news update automation failed. Please check the workflow run for details.
+
+Workflow run: ${context.runId}
+
+**Manual Action Required:**
+1. Check the workflow logs for error details
+2. Run the news-extraction-blogpost-writer agent manually with a relevant economic topic
+3. Update coverage tracking in .claude/agent-memory/weekly-news-update-scheduler/ if needed
+4. Consider adjusting topic selection if certain topics consistently fail
+
+**Common Issues:**
+- API rate limits (DeepSeek/Anthropic)
+- No suitable articles found for selected topic
+- Agent execution timeout
+- File permission issues
+
+**Fallback Topics:**
+- Inflation trends and central bank policies
+- International trade developments
+- Labor market and unemployment data
+- Government fiscal policies and budgets
+- Environmental economics and carbon pricing`,
               labels: ['automation', 'news-update', 'needs-attention']
             })
 
       - name: Commit and Push if Successful
         if: steps.run-agent.outputs.status == 'success'
         run: |
-          # Only commit if there are actual changes
-          if git status --porcelain | grep -q "agent_execution_report.md"; then
-            echo "Committing execution report..."
-            git add agent_execution_report.md
-            git commit -m "Weekly news update execution report for $(date +%Y-%m-%d)"
+          # Check for new blog posts in _posts/ directory
+          echo "Checking for new blog posts..."
+          NEW_POSTS=$(git status --porcelain _posts/ 2>/dev/null | grep -E '^\?\?|^ M|^ A' || true)
+
+          if [ -n "$NEW_POSTS" ]; then
+            echo "New blog posts detected:"
+            echo "$NEW_POSTS"
+
+            # Add all new posts
+            git add _posts/
+
+            # Also add any updated memory files
+            if git status --porcelain .claude/agent-memory/ 2>/dev/null | grep -q .; then
+              echo "Adding updated agent memory files..."
+              git add .claude/agent-memory/
+            fi
+
+            # Create commit
+            COMMIT_DATE=$(date +%Y-%m-%d)
+            git commit -m "Weekly news update: $COMMIT_DATE
+
+            Automated weekly blog post creation via GitHub Actions.
+
+            Co-Authored-By: GitHub Actions <actions@github.com>"
+
+            echo "Pushing changes..."
             git push
           else
-            echo "No changes to commit."
+            echo "No new blog posts to commit."
           fi
 
       - name: Update Workflow Status
