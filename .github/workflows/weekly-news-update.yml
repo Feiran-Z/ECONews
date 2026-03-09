@@ -30,6 +30,8 @@ jobs:
 
       - name: Install Claude Code CLI
         run: npm install -g @anthropic-ai/claude-code
+        env:
+          CLAUDECODE: ""  # Prevent nested session detection
 
       - name: Configure Git
         run: |
@@ -45,6 +47,7 @@ jobs:
           ANTHROPIC_SMALL_FAST_MODEL: deepseek-chat
           # Optional: set a timeout to prevent long runs from failing
           API_TIMEOUT_MS: 600000 # 10 minutes timeout
+          CLAUDECODE: ""  # Prevent nested session detection
         run: |
           echo "Starting weekly news update scheduler..."
 
@@ -150,7 +153,10 @@ jobs:
               print(f"Running command: {' '.join(cmd)}")
 
               try:
-                  result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
+                  # Set environment to prevent nested session detection
+                  env = os.environ.copy()
+                  env["CLAUDECODE"] = ""
+                  result = subprocess.run(cmd, capture_output=True, text=True, timeout=600, env=env)
                   print(f"Agent stdout: {result.stdout}")
                   if result.stderr:
                       print(f"Agent stderr: {result.stderr}")
@@ -220,11 +226,12 @@ jobs:
           python3 run_weekly_update.py
 
           # Check if execution was successful
-          if [ $? -eq 0 ]; then
+          EXIT_CODE=$?
+          if [ $EXIT_CODE -eq 0 ]; then
             echo "Agent execution completed successfully"
             echo "status=success" >> $GITHUB_OUTPUT
           else
-            echo "Agent execution failed"
+            echo "Agent execution failed with exit code: $EXIT_CODE"
             echo "status=failure" >> $GITHUB_OUTPUT
           fi
 
@@ -239,29 +246,6 @@ jobs:
               repo: context.repo.repo,
               title: `Weekly News Update Failed - ${today}`,
               body: `The weekly news update automation failed. Please check the workflow run for details.
-
-Workflow run: ${context.runId}
-
-**Manual Action Required:**
-1. Check the workflow logs for error details
-2. Run the news-extraction-blogpost-writer agent manually with a relevant economic topic
-3. Update coverage tracking in .claude/agent-memory/weekly-news-update-scheduler/ if needed
-4. Consider adjusting topic selection if certain topics consistently fail
-
-**Common Issues:**
-- API rate limits (DeepSeek/Anthropic)
-- No suitable articles found for selected topic
-- Agent execution timeout
-- File permission issues
-
-**Fallback Topics:**
-- Inflation trends and central bank policies
-- International trade developments
-- Labor market and unemployment data
-- Government fiscal policies and budgets
-- Environmental economics and carbon pricing`,
-              labels: ['automation', 'news-update', 'needs-attention']
-            })
 
       - name: Commit and Push if Successful
         if: steps.run-agent.outputs.status == 'success'
