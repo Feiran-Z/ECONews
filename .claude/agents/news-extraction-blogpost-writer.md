@@ -201,7 +201,7 @@ Explicit user requests:
 - **Content structure**:
   1. `**Original Article:** [Article Title](URL)`
   2. `## News Summary` (max 300 words, objective summary)
-  3. `## IB Economics Analysis` (max 300 words, syllabus connections)
+  3. `## IB Economics Connections` (max 300 words, syllabus connections)
   4. `## Tags` (max 3 tags with relevant economic topics/theories)
 - **Educational standards**: Target IB Economics students (16-19), academic but accessible language, professional tone
 
