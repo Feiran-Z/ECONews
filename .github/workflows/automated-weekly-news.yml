@@ -34,10 +34,10 @@ jobs:
           echo "Model: $ANTHROPIC_MODEL"
 
           # Install Claude Code CLI if not present
-          #if ! command -v claude &> /dev/null; then
-          #  echo "Installing Claude Code CLI..."
-          #  curl -fsSL https://claude.ai/install.sh | sh
-          #fi
+          if ! command -v claude &> /dev/null; then
+            echo "Installing Claude Code CLI..."
+            curl -fsSL https://claude.ai/install.sh | sh
+          fi
 
       - name: Run Weekly News Update Scheduler Agent
         id: weekly-news-update-scheduler
