@@ -39,6 +39,10 @@ jobs:
             curl -fsSL https://claude.ai/install.sh | bash
           fi
 
+          # Install Exa Search MCP Client
+          echo "Installing Exa Search MCP Client..."
+          claude mcp add --transport http exa https://exa.run.tools
+
       - name: Run Weekly News Update Scheduler Agent
         id: weekly-news-update-scheduler
         env:
