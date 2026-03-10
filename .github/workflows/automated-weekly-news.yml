@@ -33,6 +33,12 @@ jobs:
           echo "Using API base URL: $ANTHROPIC_BASE_URL"
           echo "Model: $ANTHROPIC_MODEL"
 
+          # Install Claude Code CLI if not present
+          if ! command -v claude &> /dev/null; then
+            echo "Installing Claude Code CLI..."
+            curl -fsSL https://claude.ai/install.sh | sh
+          fi
+
       - name: Run Weekly News Update Scheduler Agent
         id: weekly-news-update-scheduler
         env:
@@ -89,34 +95,43 @@ jobs:
           # Parse IB Economics syllabus to extract topics
           echo "Parsing IB Economics syllabus..."
 
-          # Count existing blog posts to estimate coverage
-          POST_COUNT=$(find _posts -name "*.md" -type f | wc -l)
-          echo "Found $POST_COUNT existing blog posts"
+          # Extract main topics from syllabus (31 topics across 4 units)
+          # Unit 1: Introduction to Economics (2 topics)
+          # Unit 2: Microeconomics (12 topics)
+          # Unit 3: Macroeconomics (7 topics)
+          # Unit 4: Global Economy (10 topics)
 
-          # Simple topic selection: rotate through units based on coverage
-          # This is a simplified version - in production, use more sophisticated logic
-          UNIT=$((POST_COUNT % 4 + 1))
+          # Read existing coverage to determine least covered topics
+          echo "Analyzing existing coverage..."
 
-          case $UNIT in
-            1)
-              TOPIC="Introduction to Economics"
-              SUBTOPIC="What is economics?"
-              ;;
-            2)
-              TOPIC="Microeconomics"
-              SUBTOPIC="Demand and supply"
-              ;;
-            3)
-              TOPIC="Macroeconomics"
-              SUBTOPIC="Economic growth and development"
-              ;;
-            4)
-              TOPIC="Global Economy"
-              SUBTOPIC="International trade"
-              ;;
-          esac
+          # Get list of existing posts and their tags to infer coverage
+          EXISTING_TAGS=$(grep -h "^tags:" _posts/*.md 2>/dev/null | sed 's/tags://' | tr -d '[:space:]' | tr ',' '\n' | sort | uniq || echo "")
 
-          echo "Selected topic: $TOPIC - $SUBTOPIC"
+          # Read syllabus topics from memory file or parse fresh
+          SYLLABUS_TOPICS_FILE=".claude/agent-memory/weekly-news-update-scheduler/syllabus-topics.md"
+          if [ ! -f "$SYLLABUS_TOPICS_FILE" ]; then
+            echo "Extracting syllabus topics..."
+            # Parse IBEcon-syllabus.md to extract main topics
+            grep -E "^[[:space:]]*[0-9]+\.[0-9]+" IBEcon-syllabus.md | head -31 > "$SYLLABUS_TOPICS_FILE"
+          fi
+
+          # Count total topics
+          TOTAL_TOPICS=$(wc -l < "$SYLLABUS_TOPICS_FILE" 2>/dev/null || echo "31")
+
+          # Select topic based on coverage and relevance
+          # For now, use a simple rotation based on week number
+          WEEK_NUM=$(date +%W)
+          TOPIC_INDEX=$((WEEK_NUM % TOTAL_TOPICS + 1))
+
+          # Get the selected topic
+          SELECTED_TOPIC=$(sed -n "${TOPIC_INDEX}p" "$SYLLABUS_TOPICS_FILE" 2>/dev/null || echo "Economic growth")
+
+          # Clean up topic name for output
+          TOPIC=$(echo "$SELECTED_TOPIC" | sed 's/^[[:space:]]*[0-9]*\.[0-9]*[[:space:]]*//')
+          SUBTOPIC="Current developments"  # Generic subtopic for news search
+
+          echo "Selected topic: $TOPIC"
+          echo "Week number: $WEEK_NUM, Topic index: $TOPIC_INDEX"
           echo "topic=$TOPIC" >> $GITHUB_OUTPUT
           echo "subtopic=$SUBTOPIC" >> $GITHUB_OUTPUT
 
@@ -138,48 +153,76 @@ jobs:
           #!/bin/bash
           echo "Starting news extraction blogpost writer agent..."
 
-          # The actual agent invocation would happen here
-          # For demonstration, we'll create a simple blog post
+          # Set up environment variables for Claude Code
+          export ANTHROPIC_BASE_URL="$ANTHROPIC_BASE_URL"
+          export ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY"
+          export ANTHROPIC_MODEL="$ANTHROPIC_MODEL"
+          export ANTHROPIC_SMALL_FAST_MODEL="$ANTHROPIC_SMALL_FAST_MODEL"
+
+          # Create a temporary script to run the agent
+          cat > run_agent.py << 'PYEOF'
+          import os
+          import subprocess
+          import sys
+          import json
+          import time
+
+          def run_claude_agent(topic):
+              """Run Claude Code agent to create blog post"""
+              # Build the agent command
+              cmd = [
+                  "claude", "agent",
+                  "--subagent-type", "news-extraction-blogpost-writer",
+                  "--description", f"Weekly news update: {topic}",
+                  "--prompt", f"Search for recent news articles about '{topic}' and create a blog post for the ECONews website. Follow all requirements in website-requirements.md exactly. Create the blog post in the _posts/ directory with proper YYYY-MM-DD-title-slug.md naming. Focus on finding actual recent news articles (within past 3 months) from reputable sources like Reuters, BBC, CNN, New York Times. Ensure the article has clear connections to IB Economics syllabus topics. Write a 300-word news summary and 300-word IB Economics analysis with explicit syllabus connections."
+              ]
+
+              print(f"Running command: {' '.join(cmd)}")
+
+              try:
+                  # Run the agent
+                  result = subprocess.run(
+                      cmd,
+                      capture_output=True,
+                      text=True,
+                      timeout=300  # 5 minute timeout
+                  )
+
+                  print(f"Exit code: {result.returncode}")
+                  print(f"Stdout: {result.stdout}")
+                  print(f"Stderr: {result.stderr}")
+
+                  return result.returncode == 0
+
+              except subprocess.TimeoutExpired:
+                  print("ERROR: Agent execution timed out after 5 minutes")
+                  return False
+              except Exception as e:
+                  print(f"ERROR: Failed to run agent: {e}")
+                  return False
+
+          if __name__ == "__main__":
+              topic = sys.argv[1] if len(sys.argv) > 1 else "economic growth"
+              success = run_claude_agent(topic)
+              sys.exit(0 if success else 1)
+          PYEOF
+
+          # Run the Python script
+          python3 run_agent.py "${{ steps.weekly-news-update-scheduler.outputs.topic }}"
+
+          # Check if new blog post was created
           DATE=$(date +%Y-%m-%d)
-          TOPIC="${{ steps.weekly-news-update-scheduler.outputs.topic }}"
-          SUBTOPIC="${{ steps.weekly-news-update-scheduler.outputs.subtopic }}"
+          NEW_POSTS=$(find _posts -name "${DATE}-*.md" -type f 2>/dev/null | wc -l)
 
-          # Create a sample blog post
-          cat > "_posts/${DATE}-${TOPIC// /-}-sample.md" << 'POSTEOF'
-          ---
-          layout: post
-          title: "[$DATE] Automated: $SUBTOPIC Analysis"
-          date: $DATE
-          author: ECONews Team
-          original_url: https://example.com/economic-news-article
-          tags:
-            - $TOPIC
-            - $SUBTOPIC
-            - economic-analysis
-          ---
-
-          **Original Article:** [Sample Economic News Article](https://example.com/economic-news-article)
-
-          ## News Summary
-
-          This is a sample news summary about $SUBTOPIC. In a real workflow, the news-extraction-blogpost-writer agent would search for recent articles about "$SUBTOPIC" and create a proper blog post following the website-requirements.md specifications.
-
-          The agent would find actual news articles from reputable sources like Reuters, BBC, or The New York Times, then write a 300-word summary of the main economic issue, event, or policy discussed in the article.
-
-          ## IB Economics Connections
-
-          This topic relates to the IB Economics syllabus, specifically connecting to $TOPIC concepts. In a real implementation, the agent would provide explicit connections to IB Economics syllabus topics, suggest relevant economic theories and frameworks for analysis, and offer evaluation points for critical thinking.
-
-          For $SUBTOPIC, students could analyze using standard economic models and consider real-world applications and limitations of these models in understanding current economic events.
-
-          ## Tags
-          - $TOPIC
-          - $SUBTOPIC
-          - weekly-update
-          POSTEOF
-
-          echo "Sample blog post created: _posts/${DATE}-${TOPIC// /-}-sample.md"
-          echo "status=success" >> $GITHUB_OUTPUT
+          if [ "$NEW_POSTS" -gt 0 ]; then
+              echo "✅ Successfully created blog post for ${{ steps.weekly-news-update-scheduler.outputs.topic }}"
+              echo "status=success" >> $GITHUB_OUTPUT
+              echo "post_count=$NEW_POSTS" >> $GITHUB_OUTPUT
+          else
+              echo "❌ No new blog post created for ${{ steps.weekly-news-update-scheduler.outputs.topic }}"
+              echo "status=failed" >> $GITHUB_OUTPUT
+              echo "post_count=0" >> $GITHUB_OUTPUT
+          fi
           EOF
 
           chmod +x invoke_agent.sh
@@ -191,12 +234,35 @@ jobs:
         with:
           script: |
             const today = new Date().toISOString().split('T')[0];
+            const topic = "${{ steps.weekly-news-update-scheduler.outputs.topic }}";
+            const subtopic = "${{ steps.weekly-news-update-scheduler.outputs.subtopic }}";
+            const postCount = "${{ steps.news-extraction-blogpost-writer.outputs.post_count || '0' }}";
+
+            let body = `Weekly news update automation failed for topic: **${topic}** (${subtopic})\n\n`;
+            body += `**Details:**\n`;
+            body += `- Date: ${today}\n`;
+            body += `- Topic: ${topic}\n`;
+            body += `- Subtopic: ${subtopic}\n`;
+            body += `- Posts created: ${postCount}\n\n`;
+            body += `**Next Steps:**\n`;
+            body += `1. Check workflow run logs for detailed error information\n`;
+            body += `2. Review agent configuration in .claude/agents/news-extraction-blogpost-writer.md\n`;
+            body += `3. Verify API credentials and Claude Code installation\n`;
+            body += `4. Consider trying an alternative topic if this one consistently fails\n\n`;
+            body += `**Fallback Topics:**\n`;
+            body += `- Inflation trends and central bank policies\n`;
+            body += `- International trade developments\n`;
+            body += `- Labor market and unemployment data\n`;
+            body += `- Government fiscal policies and budgets\n`;
+            body += `- Environmental economics and carbon pricing\n\n`;
+            body += `*This issue was automatically generated by the Weekly News Update workflow.*`;
+
             github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `Weekly News Update Failed - ${today}`,
-              body: "Weekly news update automation failed. Check workflow run for details.",
-              labels: ['automation', 'news-update', 'needs-attention']
+              title: `Weekly News Update Failed - ${today}: ${topic}`,
+              body: body,
+              labels: ['automation', 'news-update', 'needs-attention', 'agent-failure']
             })
       - name: Update Coverage Tracking
         if: steps.news-extraction-blogpost-writer.outputs.status == 'success'
@@ -255,6 +321,56 @@ jobs:
           echo "- **Blog Post**: $POST_NAME" >> "$MEMORY_FILE"
           echo "- **Estimated Coverage**: $COVERAGE_PERCENT%" >> "$MEMORY_FILE"
 
+          # Create syllabus topics file if it doesn't exist
+          SYLLABUS_TOPICS_FILE=".claude/agent-memory/weekly-news-update-scheduler/syllabus-topics.md"
+          if [ ! -f "$SYLLABUS_TOPICS_FILE" ]; then
+            echo "Creating syllabus topics file..."
+            # Extract main topics from IBEcon-syllabus.md
+            grep -E "^[[:space:]]*[0-9]+\.[0-9]+" IBEcon-syllabus.md | head -31 > "$SYLLABUS_TOPICS_FILE"
+            echo "Extracted $(wc -l < "$SYLLABUS_TOPICS_FILE") topics to $SYLLABUS_TOPICS_FILE"
+          fi
+
+      - name: Commit and Push New Blog Post
+        if: steps.news-extraction-blogpost-writer.outputs.status == 'success'
+        run: |
+          echo "=== Committing and Pushing New Blog Post ==="
+
+          # Check if there are any new posts to commit
+          DATE=$(date +%Y-%m-%d)
+          NEW_POSTS=$(find _posts -name "${DATE}-*.md" -type f 2>/dev/null)
+
+          if [ -z "$NEW_POSTS" ]; then
+            echo "No new posts found for today ($DATE)"
+            exit 0
+          fi
+
+          echo "New posts found:"
+          echo "$NEW_POSTS"
+
+          # Add the new posts
+          git add _posts/
+
+          # Check if there are changes to commit
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          # Commit the new posts
+          git commit -m "$(cat <<'EOF'
+          Weekly news update: ${{ steps.weekly-news-update-scheduler.outputs.topic }}
+
+          Automated blog post created by news-extraction-blogpost-writer agent.
+
+          Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+          EOF
+          )"
+
+          # Push to repository
+          git push
+
+          echo "✅ Successfully committed and pushed new blog post"
+
       - name: Workflow Summary
         run: |
           echo "=== Automated Weekly News Update Summary ==="
@@ -269,8 +385,10 @@ jobs:
             echo "Topic: ${{ steps.weekly-news-update-scheduler.outputs.topic }}"
             echo "Subtopic: ${{ steps.weekly-news-update-scheduler.outputs.subtopic }}"
             echo "Agent used: news-extraction-blogpost-writer"
+            echo "Posts created: ${{ steps.news-extraction-blogpost-writer.outputs.post_count || '0' }}"
           else
             echo "❌ Workflow failed - check logs for details"
+            echo "GitHub Issue created for manual intervention"
           fi
 
           echo ""
