@@ -175,7 +175,7 @@ jobs:
               """Run Claude Code agent to create blog post"""
               # Build the agent command
               cmd = [
-                  "claude",
+                  "claude", "-p", 
                   "--agents", "'{\n",
                   "\"news-extraction-blogpost-writer\"", ": {\n",
                   "\"description\":", "\"", f"Weekly news update: {topic}", "\"\n",
