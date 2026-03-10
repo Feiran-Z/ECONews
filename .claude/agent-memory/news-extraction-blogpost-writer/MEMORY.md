@@ -46,6 +46,11 @@
 - The sample post appears to be an older template
 - Follow website-requirements.md structure: Summary (max 300 words), IB Economics Analysis (max 300 words), Tags section
 
+## Format Clarification from Recent Posts
+- Recent posts (2026-03-09-structural-unemployment.md) follow the simpler format: Summary, IB Economics Analysis, Tags
+- This matches website-requirements.md specifications
+- Use this consistent format for all new posts
+
 ## File Management
 - Check existing posts in `_posts/` directory to avoid duplication
 - Use absolute paths for file operations
@@ -59,8 +64,16 @@
 - Real-world case shows the procedural nature of anti-dumping investigations (17-month process)
 - Effective for teaching about the balance between free trade and fair trade
 
+## Recent Experience with Structural Unemployment
+- Found Reuters article about Fed warning on AI-driven structural unemployment (Feb 24, 2026)
+- Article demonstrates clear IB Economics connections: types of unemployment, limitations of monetary policy, supply-side policies
+- Good example of how technological change creates structural unemployment
+- Shows the distinction between cyclical and structural unemployment
+- Effective for teaching about natural rate of unemployment and policy limitations
+
 ## Search Strategy Refinement
 - When searching for specific economic topics, include both general terms and specific examples
 - "anti-dumping tariffs" plus "recent cases" plus "WTO" yields better results
+- "structural unemployment" plus "AI" plus "Federal Reserve" yields relevant articles
 - Reuters and BBC provide high-quality economic reporting with clear educational value
 - Look for articles that show both the economic mechanism and real-world implementation
