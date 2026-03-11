@@ -41,7 +41,7 @@ jobs:
 
           # Install Exa Search MCP Client
           echo "Installing Exa Search MCP Client..."
-          claude mcp add --transport http exa https://exa.run.tools
+          claude mcp add --transport http exa https://mcp.exa.ai/mcp?exaApiKey=8730d603-0ec6-44e1-bb7d-6dee910da9e0
 
       - name: Run Weekly News Update Scheduler Agent
         id: weekly-news-update-scheduler
