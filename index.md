@@ -12,10 +12,10 @@ title: Home
   <section class="recent-news" aria-labelledby="news-heading">
     <h3 id="news-heading"><i class="fas fa-chart-line"></i> Latest Economic News</h3>
 
-    {% assign latest_posts = site.posts | limit: 4 %}
-    {% if latest_posts.size > 0 %}
+    {% assign all_posts = site.posts %}
+    {% if all_posts.size > 0 %}
       <div class="news-grid">
-        {% for post in latest_posts %}
+        {% for post in all_posts limit: 4 %}
           <article class="news-card" aria-labelledby="post-{{ forloop.index }}">
             <h4 id="post-{{ forloop.index }}">
               <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
