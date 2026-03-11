@@ -124,7 +124,7 @@ jobs:
 
           # Select topic based on coverage and relevance
           # For now, use a simple rotation based on week number
-          WEEK_NUM=$(date +%W)
+          WEEK_NUM=$(date +%W)+3
           TOPIC_INDEX=$((WEEK_NUM % TOTAL_TOPICS + 1))
 
           # Get the selected topic
