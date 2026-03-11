@@ -215,6 +215,7 @@ jobs:
           PYEOF
 
           # Run the Python script
+          claude --clear-history
           python3 run_agent.py "${{ steps.weekly-news-update-scheduler.outputs.topic }}"
 
           # Check if new blog post was created
