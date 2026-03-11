@@ -6,13 +6,13 @@ permalink: /news/
 
 <div class="page-content">
   <section class="hero" aria-labelledby="news-hero-heading">
-    <h2 id="news-hero-heading"><i class="fas fa-newspaper"></i> Selected News</h2>
+    <h2 id="news-hero-heading"><i class="fas fa-newspaper"></i> News Archive</h2>
     <p class="hero-subtitle">Archive of selected economic news with explicit connections to IB syllabus</p>
   </section>
 
   {% if site.posts.size > 0 %}
     <section class="recent-news" aria-labelledby="news-heading">
-      <h3 id="news-heading"><i class="fas fa-chart-line"></i> Selected News</h3>
+      <h3 id="news-heading"><i class="fas fa-chart-line"></i> News Archive</h3>
 
       <div class="news-grid">
         {% for post in site.posts %}
