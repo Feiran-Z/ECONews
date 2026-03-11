@@ -179,7 +179,7 @@ jobs:
                   "--agents", "'{\n",
                   "\"news-extraction-blogpost-writer\"", ": {\n",
                   "\"description\":", "\"", f"Weekly news update: {topic}", "\"\n",
-                  "\"prompt\":", "\"", f"Search for recent news articles about '{topic}' and create a blog post for the ECONews website. Follow all requirements in website-requirements.md exactly. Create the blog post in the _posts/ directory with proper YYYY-MM-DD-title-slug.md naming. Focus on finding actual recent news articles (within past 3 months) from reputable sources like Reuters, BBC, CNN, New York Times. Ensure the article has clear connections to IB Economics syllabus topics. Write a 300-word news summary and 300-word IB Economics analysis with explicit syllabus connections.", "\"\n",
+                  "\"prompt\":", "\"", f"Search for recent news articles about '{topic}' and create a blog post for the ECONews website. Follow all requirements in website-requirements.md exactly. Create the blog post in the _posts/ directory with proper YYYY-MM-DD-title-slug.md naming. Focus on finding actual recent news articles (within past 3 months) from reputable sources like Reuters, BBC, CNN, New York Times.", "\"\n",
                   "\"tools\":", "[\"Bash\", \"Glob\", \"Grep\", \"Read\", \"ListMcpResourcesTool\", \"ReadMcpResourceTool\", \"Edit\", \"Write\", \"NotebookEdit\", \"Skill\", \"TaskCreate\", \"TaskGet\", \"TaskUpdate\", \"TaskList\", \"EnterWorktree\", \"mcp__exa__web_search_exa\", \"mcp__exa__get_code_context_exa\"]",
                   "}}'",
               ]

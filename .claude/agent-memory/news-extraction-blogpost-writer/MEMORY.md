@@ -9,6 +9,7 @@
 ## IB Economics Syllabus Connections
 - Carbon tax relates to: Market failure (negative externalities), Government intervention (Pigouvian taxes), Environmental economics, International trade (CBAM)
 - Anti-dumping tariffs relate to: Unit 4.2 (Types of trade protection), Unit 4.3 (Arguments for/against trade protection), Unit 4.4 (WTO rules), Unit 2.5 (Elasticity of demand)
+- Public goods relate to: Section 2.9 Market failure: public goods, Free rider problem, Non-excludability and non-rivalry characteristics, Government provision vs private provision
 - Check IBEcon-syllabus.md for specific topic references
 
 ## Blog Post Format Requirements (from website-requirements.md)
@@ -75,5 +76,24 @@
 - When searching for specific economic topics, include both general terms and specific examples
 - "anti-dumping tariffs" plus "recent cases" plus "WTO" yields better results
 - "structural unemployment" plus "AI" plus "Federal Reserve" yields relevant articles
+- "public goods" plus "funding" plus "council tax" or "police funding" yields relevant local government examples
 - Reuters and BBC provide high-quality economic reporting with clear educational value
 - Look for articles that show both the economic mechanism and real-world implementation
+
+## Public Goods Search Insights
+- Public goods articles often focus on local government funding issues (parks, policing, infrastructure)
+- BBC provides excellent real-world examples of public goods funding challenges
+- Policing is a classic example of public goods with clear non-excludability and non-rivalry characteristics
+- Council tax increases for public goods provision demonstrate government intervention to solve market failure
+- Recent articles (within 6 months) provide current examples for IB Economics students
+
+## Article Selection Criteria Confirmation
+1. **Syllabus Relevance** (40%): BBC article on police funding directly connects to Section 2.9 (Market failure: public goods)
+2. **Clarity & Accessibility** (25%): BBC article is well-written, clear, and accessible for students
+3. **Detail & Depth** (25%): Provides specific funding details, policy context, and practical implications
+4. **Source Quality** (10%): BBC is a reputable, reliable news source
+
+## Word Count Management
+- News Summary: 150-200 words target (actual: ~150 words)
+- IB Economics Connections: 200-250 words target (actual: ~200 words)
+- Both sections well within 300-word limits specified in website-requirements.md
