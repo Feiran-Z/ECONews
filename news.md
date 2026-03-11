@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Selected News
+title: News Archive
 permalink: /news/
 ---
 
 <div class="page-content">
   <section class="hero" aria-labelledby="news-hero-heading">
     <h2 id="news-hero-heading"><i class="fas fa-newspaper"></i> Selected News</h2>
-    <p class="hero-subtitle">Weekly update of economic news with explicit connections to IB syllabus</p>
+    <p class="hero-subtitle">Archive of selected economic news with explicit connections to IB syllabus</p>
   </section>
 
   {% if site.posts.size > 0 %}

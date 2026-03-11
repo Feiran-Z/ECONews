@@ -10,7 +10,7 @@ title: Home
   </section>
 
   <section class="recent-news" aria-labelledby="news-heading">
-    <h3 id="news-heading"><i class="fas fa-chart-line"></i> Latest Economic News</h3>
+    <h3 id="news-heading"><i class="fas fa-chart-line"></i> Latest News Updates</h3>
 
     {% assign all_posts = site.posts %}
     {% if all_posts.size > 0 %}
