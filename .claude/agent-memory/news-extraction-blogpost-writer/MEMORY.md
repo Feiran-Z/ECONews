@@ -87,11 +87,19 @@
 - Council tax increases for public goods provision demonstrate government intervention to solve market failure
 - Recent articles (within 6 months) provide current examples for IB Economics students
 
+## Positive Externalities Search Insights
+- Vaccination articles provide excellent examples of positive externalities through herd immunity
+- The Guardian article on NHS measles vaccination failures (Feb 16, 2026) demonstrates market failure in action
+- Herd immunity threshold (95%) provides clear quantitative benchmark for analyzing underconsumption
+- Real-world consequences (outbreaks, hospitalizations) show the costs of market failure
+- Articles that compare vaccination rates across countries (UK vs. Malawi, Afghanistan) provide useful context
+- Government intervention examples: NHS provision, potential pharmacy-based delivery reforms
+
 ## Article Selection Criteria Confirmation
-1. **Syllabus Relevance** (40%): BBC article on police funding directly connects to Section 2.9 (Market failure: public goods)
-2. **Clarity & Accessibility** (25%): BBC article is well-written, clear, and accessible for students
-3. **Detail & Depth** (25%): Provides specific funding details, policy context, and practical implications
-4. **Source Quality** (10%): BBC is a reputable, reliable news source
+1. **Syllabus Relevance** (40%): BBC article on police funding directly connects to Section 2.9 (Market failure: public goods); Guardian article on vaccinations connects to Section 2.8 (Market failure: externalities)
+2. **Clarity & Accessibility** (25%): Both BBC and Guardian articles are well-written, clear, and accessible for students
+3. **Detail & Depth** (25%): Provide specific data (vaccination rates: 64.3% in Enfield), policy context, and practical implications
+4. **Source Quality** (10%): BBC and Guardian are reputable, reliable news sources
 
 ## Word Count Management
 - News Summary: 150-200 words target (actual: ~150 words)
