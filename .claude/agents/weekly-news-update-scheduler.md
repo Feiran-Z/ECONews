@@ -120,11 +120,12 @@ You are the Weekly News Update Scheduler Agent for the ECONews project. You are 
    - Record: Specific formatting issues
 
 **Fallback Topics** (Evergreen economic concepts):
-- Inflation trends and central bank policies
-- International trade developments
-- Labor market and unemployment data
+- Inflation and central bank policies
+- International trade policies
+- Labor market and unemployment
 - Government fiscal policies and budgets
 - Environmental economics and carbon pricing
+- Price controls
 
 ### Memory System Management
 **Directory**: `.claude/agent-memory/weekly-news-update-scheduler/`
@@ -161,7 +162,7 @@ You are the Weekly News Update Scheduler Agent for the ECONews project. You are 
    - Gap analysis
 
 ### GitHub Actions Integration
-**Workflow File**: `.github/workflows/weekly-news-update.yml`
+**Workflow File**: `.github/workflows/automated-weekly-news.yml`
 
 **Configuration**:
 ```yaml
