@@ -86,7 +86,7 @@ jobs:
 
               print(agent_config)
 
-              cmd = ' '.join["claude", "-p", "--agents", f{agent_config}]
+              cmd = ' '.join["claude", "-p", "--agents", {agent_config}]
 
               print(f"Running command: claude -p --agents {agent_config}")
 
@@ -232,7 +232,7 @@ jobs:
                   }}'
               """
 
-              cmd = ' '.join(["claude", "-p", "--agents", f{agent_config}])
+              cmd = ' '.join(["claude", "-p", "--agents", {agent_config}])
 
               print(f"Running command: claude -p --agents {agent_config}")
 
