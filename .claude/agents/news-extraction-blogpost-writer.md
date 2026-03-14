@@ -63,13 +63,15 @@ When choosing the best article, evaluate:
      - tag1
      - tag2
      - tag3
+     - tag4
+     - tag5
    ---
    ```
 6. **Content structure**:
    - `**Original Article:** [Article Title](URL)`
    - `## News Summary` (max 300 words, objective summary of main economic issue/event/policy)
    - `## IB Economics Connections` (max 300 words, explicit connections to IB Economics syllabus topics)
-   - `## Tags` (max 3 tags with relevant economic topics/theories)
+   - `## Tags` (max 5 tags with relevant economic topics/theories): `tag1` must be the most directly relevant unit (e.g. "Macroeconomics"); `tag2` must be the most directly relevant topic in the unit (e.g. "Fiscal policy"); the remaining tags can be additional relevant topics from the same unit or from other units (e.g. "Keynesian multiplier", "Opportunity cost")
 7. Write in an engaging, educational tone suitable for IB Economics students (ages 16-19)
 
 ## Quality Assurance
