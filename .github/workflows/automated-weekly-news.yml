@@ -77,26 +77,15 @@ jobs:
           def run_claude_agent():
               """Run Claude Code agent to schedule weekly news update"""
               # Build the agent command
-              agent_config = {
-                  "weekly-news-update-scheduler": {
-                      "description": "Weekly news update scheduler: Select topic and coordinate blog post creation",
-                      "prompt": "Select the best topic from the IB Economics syllabus for this week's blog post. Consider past coverage, current relevance, seasonal economic events, and syllabus unit balance. Output the selected topic and subtopic in a format that can be used by the news-extraction-blogpost-writer agent. Check website-requirements.md and IBEcon-syllabus.md for requirements. Update coverage tracking in memory files.",
-                      "tools": ["Bash", "Glob", "Grep", "Read", "Edit", "Write", "Agent", "TaskCreate", "TaskGet", "TaskUpdate", "TaskList", "Skill"]
-                  }
-              }
+              agent_config = "\'{\n
+                  \"weekly-news-update-scheduler\": {\n
+                      \"description\": \"Weekly news update scheduler: Select topic and coordinate blog post creation\"\n
+                      \"prompt\": \"Select the best topic from the IB Economics syllabus for this week's blog post. Consider past coverage, current relevance, seasonal economic events, and syllabus unit balance. Output the selected topic and subtopic in a format that can be used by the news-extraction-blogpost-writer agent. Check website-requirements.md and IBEcon-syllabus.md for requirements. Update coverage tracking in memory files.\"\n
+                  }}\'
+              "
               print(agent_config)
 
-              # Write agent config to a temporary file
-              import tempfile
-              with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
-                  json.dump(agent_config, f)
-                  config_file = f.name
-
-              # Read the JSON content from file and pass directly (Claude CLI doesn't support @ syntax)
-              with open(config_file, 'r') as f:
-                  json_content = f.read()
-
-              cmd = ["claude", "-p", "--agents", json_content]
+              cmd = ["claude", "-p", "--agents", f{agent_config}]
 
               print(f"Running command: claude -p --agents [JSON_CONTENT]")
 
@@ -234,25 +223,15 @@ jobs:
           def run_claude_agent(topic):
               """Run Claude Code agent to create blog post"""
               # Build the agent command
-              agent_config = {
-                  "news-extraction-blogpost-writer": {
-                      "description": f"Weekly news update: {topic}",
-                      "prompt": f"Search for recent news articles about '{topic}' and create a blog post for the ECONews website. Follow all requirements in website-requirements.md exactly. Create the blog post in the _posts/ directory with proper YYYY-MM-DD-title-slug.md naming. Focus on finding actual recent news articles (within past 3 months) from reputable sources like Reuters, BBC, CNN, New York Times.",
-                      "tools": ["Bash", "Glob", "Grep", "Read", "ListMcpResourcesTool", "ReadMcpResourceTool", "Edit", "Write", "NotebookEdit", "Skill", "TaskCreate", "TaskGet", "TaskUpdate", "TaskList", "EnterWorktree", "mcp__exa__web_search_exa", "mcp__exa__get_code_context_exa"]
-                  }
-              }
+              agent_config = "\'{\n
+                  \"news-extraction-blogpost-writer\": {
+                      \"description\": \"f"Weekly news update: {topic}"\"\n
+                      \"prompt\": \"f"Search for recent news articles about '{topic}' and create a blog post for the ECONews website. Follow all requirements in website-requirements.md exactly. Create the blog post in the _posts/ directory with proper YYYY-MM-DD-title-slug.md naming. Focus on finding actual recent news articles (within past 1 year) from reputable sources like Reuters, BBC, CNN, New York Times, The Guardian."\"\n
+                      \"tools\": [\"Bash\", \"Glob\", \"Grep\", \"Read\", \"ListMcpResourcesTool\", \"ReadMcpResourceTool\", \"Edit\", \"Write\", \"NotebookEdit\", \"Skill\", \"TaskCreate\", \"TaskGet\", \"TaskUpdate\", \"TaskList\", \"EnterWorktree\", \"mcp__exa__web_search_exa\", \"mcp__exa__get_code_context_exa\"]\n
+                  }}\'
+              "
 
-              # Write agent config to a temporary file
-              import tempfile
-              with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
-                  json.dump(agent_config, f)
-                  config_file = f.name
-
-              # Read the JSON content from file and pass directly (Claude CLI doesn't support @ syntax)
-              with open(config_file, 'r') as f:
-                  json_content = f.read()
-
-              cmd = ["claude", "-p", "--agents", json_content]
+              cmd = ["claude", "-p", "--agents", f{agent_config}]
 
               print(f"Running command: claude -p --agents [JSON_CONTENT]")
 
