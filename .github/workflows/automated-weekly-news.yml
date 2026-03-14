@@ -223,15 +223,15 @@ jobs:
           def run_claude_agent(topic):
               """Run Claude Code agent to create blog post"""
               # Build the agent command
-              agent_config = "\'{\n
-                  \"news-extraction-blogpost-writer\": {
-                      \"description\": \"f"Weekly news update: {topic}"\"\n
-                      \"prompt\": \"f"Search for recent news articles about '{topic}' and create a blog post for the ECONews website. Follow all requirements in website-requirements.md exactly. Create the blog post in the _posts/ directory with proper YYYY-MM-DD-title-slug.md naming. Focus on finding actual recent news articles (within past 1 year) from reputable sources like Reuters, BBC, CNN, New York Times, The Guardian."\"\n
-                      \"tools\": [\"Bash\", \"Glob\", \"Grep\", \"Read\", \"ListMcpResourcesTool\", \"ReadMcpResourceTool\", \"Edit\", \"Write\", \"NotebookEdit\", \"Skill\", \"TaskCreate\", \"TaskGet\", \"TaskUpdate\", \"TaskList\", \"EnterWorktree\", \"mcp__exa__web_search_exa\", \"mcp__exa__get_code_context_exa\"]\n
-                  }}\'
-              "
+              agent_config = """'{
+                  "news-extraction-blogpost-writer": {
+                      "description": f"Weekly news update: {topic}"
+                      "prompt": "f"Search for recent news articles about '{topic}' and create a blog post for the ECONews website. Follow all requirements in website-requirements.md exactly. Create the blog post in the _posts/ directory with proper YYYY-MM-DD-title-slug.md naming. Focus on finding actual recent news articles (within past 1 year) from reputable sources like Reuters, BBC, CNN, New York Times, The Guardian."
+                      "tools": ["Bash", "Glob", "Grep", "Read", "ListMcpResourcesTool", "ReadMcpResourceTool", "Edit", "Write", "NotebookEdit", "Skill", "TaskCreate", "TaskGet", "TaskUpdate", "TaskList", "EnterWorktree", "mcp__exa__web_search_exa", "mcp__exa__get_code_context_exa"]
+                  }}''
+              """
 
-              cmd = ["claude", "-p", "--agents", f{agent_config}]
+              cmd = ' '.join(["claude", "-p", "--agents", f{agent_config}])
 
               print(f"Running command: claude -p --agents {agent_config}")
 
