@@ -87,6 +87,8 @@ tags:
   - tag1
   - tag2
   - tag3
+  - tag4
+  - tag5
 ---
 ```
 
@@ -103,7 +105,7 @@ tags:
 [One paragraph, maximum 300 words. Suggest relevant IB economics theories and frameworks to analyze and evaluate the main economic event/policy/issue presented in the article.]
 
 ## Tags
-[At most 3 tags featuring the most relevant economic topics or theories]
+[At most 5 tags featuring the most relevant economic topics or theories.]
 ```
 
 ### Content Guidelines
@@ -117,14 +119,16 @@ tags:
    - Maximum 300 words
    - Explicit connections to IB Economics syllabus topics
    - Reference specific theories and frameworks
-   - Suggest analysis approaches for students
-   - Include evaluation points for critical thinking
+   - Include evaluation perspectives for critical thinking
 
 3. **Tags**:
-   - Maximum 3 tags per article
+   - Maximum 4 tags per article
    - Use standard economic terminology
-   - Focus on most relevant economic concepts
-   - Examples: inflation, monetary policy, international trade, market failure
+   - Focus on most relevant economic concepts or theories
+   - `tag1` must be the most directly relevant unit (e.g. "Macroeconomics")
+   - `tag2` must be the most directly relevant topic in that unit (e.g. "Fiscal policy")
+   - The remaining tags can be additional relevant topics from that unit or from other units
+   - Examples: Macroeconomics, Fiscal policy, Economic growth, Keynesian Multiplier, Human capital
 
 ### Educational Standards
 - Target audience: IB Economics students (ages 16-19)
