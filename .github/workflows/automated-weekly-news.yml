@@ -87,7 +87,7 @@ jobs:
 
               cmd = ["claude", "-p", "--agents", f{agent_config}]
 
-              print(f"Running command: claude -p --agents [JSON_CONTENT]")
+              print(f"Running command: claude -p --agents {agent_config}")
 
               try:
                   # Run the agent
@@ -233,7 +233,7 @@ jobs:
 
               cmd = ["claude", "-p", "--agents", f{agent_config}]
 
-              print(f"Running command: claude -p --agents [JSON_CONTENT]")
+              print(f"Running command: claude -p --agents {agent_config}")
 
               try:
                   # Run the agent
