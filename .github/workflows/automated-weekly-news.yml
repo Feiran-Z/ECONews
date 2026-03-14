@@ -84,6 +84,7 @@ jobs:
                       "tools": ["Bash", "Glob", "Grep", "Read", "Edit", "Write", "Agent", "TaskCreate", "TaskGet", "TaskUpdate", "TaskList", "Skill"]
                   }
               }
+              print(agent_config)
 
               # Write agent config to a temporary file
               import tempfile
