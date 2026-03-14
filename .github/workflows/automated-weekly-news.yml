@@ -92,9 +92,13 @@ jobs:
                   json.dump(agent_config, f)
                   config_file = f.name
 
-              cmd = ["claude", "-p", "--agents", f"\'{agent_config}\'"]
+              # Read the JSON content from file and pass directly (Claude CLI doesn't support @ syntax)
+              with open(config_file, 'r') as f:
+                  json_content = f.read()
 
-              print(f"Running command: {' '.join(cmd)}")
+              cmd = ["claude", "-p", "--agents", json_content]
+
+              print(f"Running command: claude -p --agents [JSON_CONTENT]")
 
               try:
                   # Run the agent
@@ -244,9 +248,13 @@ jobs:
                   json.dump(agent_config, f)
                   config_file = f.name
 
-              cmd = ["claude", "-p", "--agents", f"@{config_file}"]
+              # Read the JSON content from file and pass directly (Claude CLI doesn't support @ syntax)
+              with open(config_file, 'r') as f:
+                  json_content = f.read()
 
-              print(f"Running command: {' '.join(cmd)}")
+              cmd = ["claude", "-p", "--agents", json_content]
+
+              print(f"Running command: claude -p --agents [JSON_CONTENT]")
 
               try:
                   # Run the agent
