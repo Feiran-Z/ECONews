@@ -92,7 +92,7 @@ jobs:
                   json.dump(agent_config, f)
                   config_file = f.name
 
-              cmd = ["claude", "-p", "--agents", f"{agent_config}"]
+              cmd = ["claude", "-p", "--agents", f"\'{agent_config}\'"]
 
               print(f"Running command: {' '.join(cmd)}")
 
