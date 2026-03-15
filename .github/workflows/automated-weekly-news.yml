@@ -92,6 +92,7 @@ jobs:
                   # Run the agent
                   result = subprocess.run(
                       cmd,
+                      input="Run the weekly-news-update-scheduler agent.",
                       capture_output=True,
                       text=True,
                       timeout=600  # 10 minute timeout
