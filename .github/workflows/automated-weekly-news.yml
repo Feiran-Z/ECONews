@@ -77,20 +77,13 @@ jobs:
           def run_claude_agent():
               """Run Claude Code agent to schedule weekly news update"""
               # Build the agent command
-              agent_config = """
-              '{
-                  "weekly-news-update-scheduler": {
-                      "description": "Weekly news update scheduler: Select topic and coordinate blog post creation",
-                      "prompt": "Select the best topic from the IB Economics syllabus for this week's blog post. Consider past coverage, current relevance, seasonal economic events, and syllabus unit balance. Output the selected topic and subtopic in a format that can be used by the news-extraction-blogpost-writer agent. Check website-requirements.md and IBEcon-syllabus.md for requirements. Update coverage tracking in memory files."
-                  }
-              }'
-              """
+              agent_config = """'{"weekly-news-update-scheduler": {"description": "Weekly news update scheduler: Select topic and coordinate blog post creation", "prompt": "Select the best topic from the IB Economics syllabus for this week's blog post. Consider past coverage, current relevance, seasonal economic events, and syllabus unit balance. Output the selected topic and subtopic in a format that can be used by the news-extraction-blogpost-writer agent. Check website-requirements.md and IBEcon-syllabus.md for requirements. Update coverage tracking in memory files."}}'"""
 
               print(agent_config)
 
               cmd = ' '.join(["claude", "-p", "--agents", agent_config])
 
-              print(f"Running command: claude -p --agents {agent_config}")
+              print(f"Running command: {cmd}")
 
               try:
                   # Run the agent
@@ -226,15 +219,7 @@ jobs:
           def run_claude_agent(topic):
               """Run Claude Code agent to create blog post"""
               # Build the agent command
-              agent_config = """
-              '{
-                  "news-extraction-blogpost-writer": {
-                      "description": f"Weekly news update: {topic}",
-                      "prompt": "f"Search for recent news articles about '{topic}' and create a blog post for the ECONews website. Follow all requirements in website-requirements.md exactly. Create the blog post in the _posts/ directory with proper YYYY-MM-DD-title-slug.md naming. Focus on finding actual recent news articles (within past 1 year) from reputable sources like Reuters, BBC, CNN, New York Times, The Guardian.",
-                      "tools": ["Bash", "Glob", "Grep", "Read", "ListMcpResourcesTool", "ReadMcpResourceTool", "Edit", "Write", "NotebookEdit", "Skill", "TaskCreate", "TaskGet", "TaskUpdate", "TaskList", "EnterWorktree", "mcp__exa__web_search_exa", "mcp__exa__get_code_context_exa"]
-                  }
-              }'
-              """
+              agent_config = """'{"news-extraction-blogpost-writer": {"description": f"Weekly news update: {topic}", "prompt": "f"Search for recent news articles about '{topic}' and create a blog post for the ECONews website. Follow all requirements in website-requirements.md exactly. Create the blog post in the _posts/ directory with proper YYYY-MM-DD-title-slug.md naming. Focus on finding actual recent news articles (within past 1 year) from reputable sources like Reuters, BBC, CNN, New York Times, The Guardian.", "tools": ["Bash", "Glob", "Grep", "Read", "ListMcpResourcesTool", "ReadMcpResourceTool", "Edit", "Write", "NotebookEdit", "Skill", "TaskCreate", "TaskGet", "TaskUpdate", "TaskList", "EnterWorktree", "mcp__exa__web_search_exa", "mcp__exa__get_code_context_exa"]}}'"""
 
               cmd = ' '.join(["claude", "-p", "--agents", agent_config])
 
