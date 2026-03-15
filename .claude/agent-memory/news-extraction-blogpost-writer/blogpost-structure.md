@@ -17,7 +17,7 @@
 [One paragraph, maximum 300 words. Suggest relevant IB economics theories and frameworks to analyze and evaluate the main economic event/policy/issue presented in the article.]
 
 ## Tags
-[At most 3 tags featuring the most relevant economic topics or theories]
+[At most 5 tags featuring the most relevant economic topics or theories]
 ```
 
 ## Educational Tone Guidelines

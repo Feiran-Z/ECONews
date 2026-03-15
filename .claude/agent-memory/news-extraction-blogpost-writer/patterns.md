@@ -51,12 +51,12 @@
 ## Blog Post Format Adjustments
 1. **Word Count Management**:
    - News Summary should be under 300 words (target ~200)
-   - IB Economics Analysis should be under 300 words (target ~280)
+   - IB Economics Connections should be under 300 words (target ~280)
    - Need to edit down content to meet word limits
 
 2. **Structure Refinements**:
    - Remove "Word Count" footer from posts
-   - Limit tags to maximum 3 relevant economic topics
+   - Limit tags to maximum 5 relevant economic topics
    - Ensure proper YAML frontmatter formatting
    - Use consistent section headings
 
@@ -64,4 +64,3 @@
    - Explicitly reference IB syllabus unit numbers
    - Connect theories to real-world examples from articles
    - Provide evaluation points for student analysis
-   - Suggest Internal Assessment (IA) topics

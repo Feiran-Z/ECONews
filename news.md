@@ -31,7 +31,7 @@ permalink: /news/
               {% endif %}
               {% if post.tags %}
                 <span class="post-tags">
-                  {% for tag in post.tags limit: 3 %}
+                  {% for tag in post.tags limit: 5 %}
                     <span class="tag" aria-label="Tag: {{ tag }}">{{ tag }}</span>
                   {% endfor %}
                 </span>
