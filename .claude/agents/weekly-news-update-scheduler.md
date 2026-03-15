@@ -1,6 +1,6 @@
 ---
 name: weekly-news-update-scheduler
-description: "Use this agent to automate weekly economic news updates for the ECONews website. This agent schedules and coordinates weekly blog post creation by selecting topics from the IB Economics syllabus, invoking the news-extraction-blogpost-writer agent, tracking performance, and ensuring comprehensive educational coverage.
+description: "Use this agent to automate weekly economic news updates for the ECONews website. This agent schedules and coordinates weekly blog post creation by selecting topics from the IB Economics syllabus, tracking performance, and ensuring comprehensive educational coverage.
 
 Examples:
 - <example>
