@@ -27,13 +27,15 @@
     - tag1
     - tag2
     - tag3
+    - tag4
+    - tag5
   ---
   ```
 - **Content structure**:
   1. `**Original Article:** [Article Title](URL)`
   2. `## News Summary` (max 300 words, objective summary)
   3. `## IB Economics Connections` (max 300 words, syllabus connections)
-  4. `## Tags` (max 3 tags with relevant economic topics/theories)
+  4. `## Tags` (max 5 tags with relevant economic topics/theories, first tag must be the most directly relevant unit, and second tag must be the most directly relevant topic of that unit)
 - **Educational standards**: Target IB Economics students (16-19), academic but accessible language, professional tone
 
 ## Important Notes from Sample Post
@@ -102,6 +104,14 @@
 4. **Source Quality** (10%): BBC and Guardian are reputable, reliable news sources
 
 ## Word Count Management
-- News Summary: 150-200 words target (actual: ~150 words)
-- IB Economics Connections: 200-250 words target (actual: ~200 words)
+- News Summary: 150-200 words target (actual: ~150-180 words)
+- IB Economics Connections: 200-250 words target (actual: ~200-220 words)
 - Both sections well within 300-word limits specified in website-requirements.md
+- Current post: News Summary 174 words, IB Economics Connections 209 words
+
+## Monetary Policy Search Insights
+- Federal Reserve interest rate decisions provide excellent examples of monetary policy in action
+- Inflation targeting (2% target) is a clear real-world application of IB Economics Unit 3.5 concepts
+- Reuters provides high-quality coverage of central bank decisions with specific data (interest rates, inflation figures, economic projections)
+- Articles that include both policy decisions and economic context (unemployment, GDP growth) provide comprehensive case studies
+- The transmission mechanism of monetary policy can be illustrated through interest rate effects on consumption, investment, and exchange rates

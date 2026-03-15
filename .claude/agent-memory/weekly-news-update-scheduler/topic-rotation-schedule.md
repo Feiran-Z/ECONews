@@ -6,9 +6,9 @@
 - **Topic**: 3.5 Demand-management: monetary policy
 - **Subtopic**: Central bank policies and inflation targeting
 - **Rationale**: March is often when central banks review monetary policy. Current economic climate likely features inflation concerns, making this highly relevant.
-- **Status**: Scheduled
-- **Blog Post**: Not yet created
-- **Success**: Pending
+- **Status**: Selected for execution
+- **Blog Post**: To be created by news-extraction-blogpost-writer agent
+- **Success**: In progress
 
 ### Coverage Statistics
 **Unit 1: Introduction to Economics (2 topics)**

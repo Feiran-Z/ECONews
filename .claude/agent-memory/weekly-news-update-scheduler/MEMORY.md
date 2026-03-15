@@ -4,6 +4,8 @@
 - First execution: March 15, 2026
 - No previous blog posts found in _posts/ directory
 - Starting fresh coverage of IB Economics syllabus
+- **Current week selection**: Topic 3.5 (Monetary policy) selected for Week 1
+- **Execution status**: Topic identified, ready for news agent execution
 
 ## Syllabus Coverage Summary
 - Unit 1: Introduction to Economics (2 topics) - 0% covered
