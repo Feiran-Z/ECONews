@@ -84,8 +84,6 @@ jobs:
                   }
               }
 
-              print(agent_config)
-
               cmd = f"claude -p --agents '{json.dumps(agent_config)}'"
 
               print(f"Running command: {cmd}")
