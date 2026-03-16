@@ -84,7 +84,7 @@ jobs:
                   }
               }
 
-              cmd = ["claude", "-p", "--agents", json.dumps(agent_config), "Suggest the topic and subtopic for the next post."]
+              cmd = f"claude -p --agents '{json.dumps(agent_config)}' \"Suggest topic and subtopic for the next post and consider topic coverage.\""
 
               print(f"Running command: {cmd}")
 
@@ -231,7 +231,7 @@ jobs:
                   }
               }
 
-              cmd = ["claude", "-p", "--agents", json.dumps(agent_config)]
+              cmd = f"claude -p --agents '{json.dumps(agent_config)}' \"Write the post on the suggested topic '{topic}' for ECONews website.\""
 
               print(f"Running command: {cmd}")
 
@@ -242,6 +242,7 @@ jobs:
                       input="Run news extraction blogpost writer agent based on the topic and subtopic included in the prompt."
                       capture_output=True,
                       text=True,
+                      shell=True,
                       timeout=600  # 10 minute timeout
                   )
 
