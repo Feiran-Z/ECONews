@@ -93,7 +93,7 @@
     - News relevance: High (inequality)
 
 ### Unit 3: Macroeconomics
-**Status: 0/7 topics covered (0%)**
+**Status: 1/7 topics covered (14.3%)**
 
 15. **3.1 Measuring economic activity**
     - Coverage status: Not covered
@@ -119,11 +119,12 @@
     - Educational value: High (social issues)
     - News relevance: High (wealth gap)
 
-19. **3.5 Demand-management: monetary policy** ⭐ **CURRENT WEEK**
-    - Coverage status: Scheduled for March 16, 2026
-    - Last covered: Never
+19. **3.5 Demand-management: monetary policy** ⭐ **COVERED**
+    - Coverage status: Covered on March 16, 2026
+    - Last covered: March 16, 2026
     - Educational value: Very High (central banking)
     - News relevance: Very High (inflation, interest rates)
+    - Blog post: 2026-03-16-fed-hard-choice-jobs-inflation.md
 
 20. **3.6 Demand-management: fiscal policy**
     - Coverage status: Not covered
@@ -204,7 +205,6 @@
 Based on educational value and news relevance:
 
 **Tier 1 (Very High priority):**
-- 3.5 Monetary policy (selected)
 - 3.6 Fiscal policy
 - 3.3 Macroeconomic objectives
 - 2.8 Externalities

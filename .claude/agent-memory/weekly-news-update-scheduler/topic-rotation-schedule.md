@@ -6,7 +6,15 @@
 - **Topic**: 3.5 Demand-management: monetary policy
 - **Subtopic**: Central bank policies and inflation targeting
 - **Rationale**: March is often when central banks review monetary policy. Current economic climate likely features inflation concerns, making this highly relevant.
-- **Status**: Ready for execution via news-extraction-blogpost-writer agent
+- **Status**: Completed
+- **Blog Post**: 2026-03-16-fed-hard-choice-jobs-inflation.md
+- **Success**: Yes
+
+### Week 2: March 23, 2026
+- **Topic**: 3.6 Demand-management: fiscal policy
+- **Subtopic**: Government budgets, taxation, and economic stimulus
+- **Rationale**: Follows logically from monetary policy coverage. March is budget season in many countries with fiscal policy announcements. Current news shows active fiscal policy discussions (U.S. budget outlook, Japan budget passage, potential reconciliation bills).
+- **Status**: Ready for execution
 - **Blog Post**: To be created
 - **Success**: Pending
 
@@ -36,10 +44,10 @@
 - 3.2 Aggregate demand and supply - Not covered
 - 3.3 Macroeconomic objectives - Not covered
 - 3.4 Economics of inequality - Not covered
-- 3.5 Demand-management: monetary policy - Scheduled for Week 1
+- 3.5 Demand-management: monetary policy - Covered Week 1
 - 3.6 Demand-management: fiscal policy - Not covered
 - 3.7 Supply-side policies - Not covered
-- **Coverage**: 0/7 (0%)
+- **Coverage**: 1/7 (14.3%)
 
 **Unit 4: Global Economy (10 topics)**
 - 4.1 Benefits of international trade - Not covered
@@ -54,16 +62,16 @@
 - 4.10 Strategies for growth - Not covered
 - **Coverage**: 0/10 (0%)
 
-**Overall Coverage**: 0/31 topics (0%)
+**Overall Coverage**: 1/31 topics (3.2%)
 
 ## Future Topic Planning
 Based on seasonal relevance and syllabus progression:
 
-**Next 4 weeks (tentative):**
-1. Week 1 (Mar 15): Monetary policy (3.5) - Current selection
-2. Week 2 (Mar 22): Fiscal policy (3.6) - Follows monetary policy logically
-3. Week 3 (Mar 29): Inflation (part of 3.3) - Current economic relevance
-4. Week 4 (Apr 5): International trade (4.1) - Spring trade discussions
+**Next 4 weeks (confirmed):**
+1. Week 1 (Mar 16): Monetary policy (3.5) - COMPLETED
+2. Week 2 (Mar 23): Fiscal policy (3.6) - SELECTED (follows monetary policy logically, seasonal relevance confirmed with current budget news)
+3. Week 3 (Mar 30): Consider 3.3 Macroeconomic objectives (inflation focus) OR 2.8 Market failure: externalities (environmental economics)
+4. Week 4 (Apr 6): Consider 4.1 International trade OR 4.7 Sustainable development (climate policy)
 
 **Evergreen fallback topics:**
 1. Inflation and central bank policies
