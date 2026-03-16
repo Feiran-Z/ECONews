@@ -84,7 +84,7 @@ jobs:
                   }
               }
 
-              cmd = f"claude -p --agent weekly-news-update-scheduler \"Select the best topic from the IB Economics syllabus for this week blog post. Consider past coverage, current relevance, seasonal economic events, and syllabus unit balance. Output the selected topic and subtopic in a format that can be used by the news-extraction-blogpost-writer agent. Check website-requirements.md and IBEcon-syllabus.md for requirements. Update coverage tracking in memory files.\""
+              cmd = ["claude", "-p", "--agents", json.dumps(agent_config), "Suggest the topic and subtopic for the next post."]
 
               print(f"Running command: {cmd}")
 
