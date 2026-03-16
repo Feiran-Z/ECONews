@@ -84,7 +84,7 @@ jobs:
                   }
               }
 
-              cmd = ["claude", "-p", "--agents", json.dumps(agent_config)]
+              cmd = ["claude", "--agents", json.dumps(agent_config)]
 
               print(f"Running command: {cmd}")
 
