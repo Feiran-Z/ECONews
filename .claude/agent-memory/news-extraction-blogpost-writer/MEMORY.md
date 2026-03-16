@@ -74,11 +74,21 @@
 - Shows the distinction between cyclical and structural unemployment
 - Effective for teaching about natural rate of unemployment and policy limitations
 
+## Recent Experience with Monetary Policy Dilemmas
+- Found Reuters article "Fed faced with hard choice on weak jobs, high inflation" (March 6, 2026)
+- Article demonstrates central bank dual mandate conflicts during stagflation scenarios
+- Excellent example of Unit 3.5: Demand-management: monetary policy
+- Shows real-world application of inflation targeting (2% target) and policy trade-offs
+- Illustrates how external supply shocks (Middle East conflict, oil prices) complicate monetary policy
+- Effective for teaching about transmission mechanisms and policy credibility
+
 ## Search Strategy Refinement
 - When searching for specific economic topics, include both general terms and specific examples
 - "anti-dumping tariffs" plus "recent cases" plus "WTO" yields better results
 - "structural unemployment" plus "AI" plus "Federal Reserve" yields relevant articles
 - "public goods" plus "funding" plus "council tax" or "police funding" yields relevant local government examples
+- "monetary policy" plus "inflation targeting" plus "March 2026" yields current central bank decisions
+- "stagflation" plus "Federal Reserve" plus "jobs data" yields articles about policy dilemmas
 - Reuters and BBC provide high-quality economic reporting with clear educational value
 - Look for articles that show both the economic mechanism and real-world implementation
 
@@ -115,3 +125,6 @@
 - Reuters provides high-quality coverage of central bank decisions with specific data (interest rates, inflation figures, economic projections)
 - Articles that include both policy decisions and economic context (unemployment, GDP growth) provide comprehensive case studies
 - The transmission mechanism of monetary policy can be illustrated through interest rate effects on consumption, investment, and exchange rates
+- Stagflation scenarios (simultaneous high inflation and weak employment) create excellent teaching moments about policy trade-offs
+- Geopolitical events (Middle East conflicts) can create external supply shocks that complicate monetary policy decisions
+- Central bank dual mandates (price stability vs. maximum employment) become particularly evident during conflicting economic signals

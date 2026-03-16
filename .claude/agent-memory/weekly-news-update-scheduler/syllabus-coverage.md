@@ -119,8 +119,8 @@
     - Educational value: High (social issues)
     - News relevance: High (wealth gap)
 
-19. **3.5 Demand-management: monetary policy** ⭐ **SELECTED FOR WEEK 1**
-    - Coverage status: Scheduled for March 15, 2026
+19. **3.5 Demand-management: monetary policy** ⭐ **CURRENT WEEK**
+    - Coverage status: Scheduled for March 16, 2026
     - Last covered: Never
     - Educational value: Very High (central banking)
     - News relevance: Very High (inflation, interest rates)

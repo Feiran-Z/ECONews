@@ -2,13 +2,13 @@
 
 ## Weekly Coverage Tracking
 
-### Week 1: March 15, 2026
+### Week 1: March 16, 2026
 - **Topic**: 3.5 Demand-management: monetary policy
 - **Subtopic**: Central bank policies and inflation targeting
 - **Rationale**: March is often when central banks review monetary policy. Current economic climate likely features inflation concerns, making this highly relevant.
-- **Status**: Selected for execution
-- **Blog Post**: To be created by news-extraction-blogpost-writer agent
-- **Success**: In progress
+- **Status**: Ready for execution via news-extraction-blogpost-writer agent
+- **Blog Post**: To be created
+- **Success**: Pending
 
 ### Coverage Statistics
 **Unit 1: Introduction to Economics (2 topics)**
