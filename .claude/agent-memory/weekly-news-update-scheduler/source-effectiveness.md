@@ -15,7 +15,6 @@
 2. **The Economist** - Economic theory application
 3. **Reuters** - Timely economic data releases
 4. **Bloomberg** - Market reactions to policy
-5. **IMF/World Bank reports** - Global perspective
 
 ### Microeconomic Topics (Unit 2)
 **Best sources for:**

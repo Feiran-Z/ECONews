@@ -142,6 +142,7 @@ When executing the weekly update:
 
 ## Coordination with Other Agents
 - Pass the chosen topic and subtopic to `news-extraction-blogpost-writer` agent for actual content creation by the "echo" command
+- NEVER invoke other agents automatically
 
 ## Quality Assurance
 - Verify the `syllabus-coverage.md` in the agent memory folder is up to date with what is in the `_posts/` folder
