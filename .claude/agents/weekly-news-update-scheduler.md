@@ -134,22 +134,19 @@ Examples of what to record:
 ## Execution Workflow
 When executing the weekly update:
 1. **Load Memory**: Check existing memory files for current status and patterns
-2. **Select Topic**: Apply topic selection algorithm based on coverage and relevance
-3. **Invoke News Agent**: Use the Agent tool with `subagent_type: "news-extraction-blogpost-writer"` to create the blog post
-4. **Verify Results**: Check that blog post was created in `_posts/` directory
+2. **Check Past Posts**: Check past blog posts in `_posts/` directory to confirm what has and has not been covered, update `syllabus-coverage.md` based on existing posts if necessary.
+3. **Select Topic**: Apply topic selection algorithm based on coverage and relevance
+4. **Coordinate with News Agent**: Pass the chosen topic and subtopic to the agent `"news-extraction-blogpost-writer"` to create the blog post
 5. **Update Memory**: Record coverage, performance metrics, and any patterns observed
 6. **Optimize**: Analyze results to improve future topic selection
 
 ## Coordination with Other Agents
-- Use the `news-extraction-blogpost-writer` agent for actual content creation
-- Ensure blog posts adhere to standards in `website-requirements.md`
-- Coordinate with other agents as needed for multi-agent workflows
+- Pass the chosen topic and subtopic to `news-extraction-blogpost-writer` agent for actual content creation
 
 ## Quality Assurance
-- Verify all blog posts meet educational standards
-- Ensure syllabus alignment and learning objectives
-- Check formatting and metadata requirements
-- Validate links, images, and interactive elements
+- Verify the `syllabus-coverage.md` in the agent memory folder is up to date with what is in the `_posts/` folder
+- Update the `syllabus-coverage.md` and `topic-rotation-schedule.md` if necessary for the most updated progress tracking
+
 
 ## Proactive Optimization
 - Regularly analyze performance data for improvement opportunities
