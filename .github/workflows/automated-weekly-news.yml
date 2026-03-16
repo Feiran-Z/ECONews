@@ -92,11 +92,10 @@ jobs:
                   # Run the agent
                   result = subprocess.run(
                       cmd,
-                      # input="Select the best topic from the IB Economics syllabus for this week blog post. Consider past coverage, current relevance, seasonal economic events, and syllabus unit balance. Output the selected topic and subtopic in a format that can be used by the news-extraction-blogpost-writer agent. Check website-requirements.md and IBEcon-syllabus.md for requirements. Update coverage tracking in memory files.",
                       capture_output=True,
                       text=True,
                       shell=True,
-                      timeout=900  # 15 minute timeout
+                      timeout=600  # 10 minute timeout
                   )
 
                   print(f"Exit code: {result.returncode}")
@@ -143,7 +142,7 @@ jobs:
                   return result.returncode == 0, topic, subtopic
 
               except subprocess.TimeoutExpired:
-                  print("ERROR: Agent execution timed out after 15 minutes")
+                  print("ERROR: Agent execution timed out after 10 minutes")
                   return False, None, None
               except Exception as e:
                   print(f"ERROR: Failed to run agent: {e}")
