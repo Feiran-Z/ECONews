@@ -10,7 +10,7 @@ Detailed requirements of the website is contained in the file `website-requireme
 
 ## Agent Architecture
 
-The project uses five specialized agents, each with specific responsibilities:
+The project uses seven specialized agents, each with specific responsibilities:
 
 1. **github-pages-setup-configurator** - Repository setup, GitHub Pages configuration, domain setup, SSL configuration, and local development environment setup
 2. **frontend-website-builder** - Frontend development, responsive design, interactive elements, and asset optimization
@@ -18,6 +18,7 @@ The project uses five specialized agents, each with specific responsibilities:
 4. **website-test-deploy** - Local testing, deployment to GitHub Pages, verification, and monitoring
 5. **seo-analytics-configurator** - SEO optimization, analytics tracking, and search engine configuration
 6. **news-extraction-blogpost-writer** - Extract best news article and write a blogpost about it
+7. **weekly-news-update-scheduler** - Choose topic and subtopic to be covered next based on past coverages and other metrics
 
 ## Agent Configuration
 
@@ -58,5 +59,7 @@ When working on multi-agent tasks:
 3. Engage the content agent for text and metadata
 4. Use the SEO agent for optimization and analytics
 5. Deploy with the test/deploy agent
+6. Use news extraction and blogpost writer agent to search for news articles and write posts about them
+7. Use weekly news update scheduler agent to choose and schedule next topic and subtopic to be covered
 
 Each agent is designed to work independently but can be coordinated for complex workflows.
