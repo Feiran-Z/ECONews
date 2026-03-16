@@ -141,7 +141,7 @@ When executing the weekly update:
 6. **Optimize**: Analyze results to improve future topic selection
 
 ## Coordination with Other Agents
-- Pass the chosen topic and subtopic to `news-extraction-blogpost-writer` agent for actual content creation
+- Pass the chosen topic and subtopic to `news-extraction-blogpost-writer` agent for actual content creation by the "echo" command
 
 ## Quality Assurance
 - Verify the `syllabus-coverage.md` in the agent memory folder is up to date with what is in the `_posts/` folder
