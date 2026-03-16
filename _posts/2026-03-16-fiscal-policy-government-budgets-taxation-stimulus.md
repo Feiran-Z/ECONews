@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "[2026-03-23] BBC: Spring Statement: No new tax rises, but don't be fooled - tax bills are still rising"
-date: 2026-03-23
+title: "[2026-03-16] BBC: Spring Statement: No new tax rises, but don't be fooled - tax bills are still rising"
+date: 2026-03-16
 author: ECONews Team
 original_url: http://www.bbc.com/news/articles/cj6dwg4deewo
 tags:
