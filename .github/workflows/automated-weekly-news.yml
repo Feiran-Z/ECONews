@@ -111,11 +111,11 @@ jobs:
 
                   for line in result.stdout.split('\n'):
                       if 'Selected topic:' in line:
-                          topic = line.split('Selected topic:')[1].strip()
+                          topic = line.split('Selected topic:', 2)[1].strip("*").strip()
                       elif 'Subtopic:' in line:
-                          subtopic = line.split('Subtopic:')[1].strip()
+                          subtopic = line.split('Subtopic:', 2)[1].strip("*").strip()
                       elif 'Topic:' in line and 'topic' not in locals():
-                          topic = line.split('Topic:')[1].strip()
+                          topic = line.split('Topic:, 2')[1].strip("*").strip()
 
                   # Fallback: try to extract from any line with "topic"
                   if not topic:
