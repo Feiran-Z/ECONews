@@ -272,7 +272,7 @@ jobs:
           PYEOF
 
           # Run the Python script
-          fulltopic = "${{ steps.weekly-news-update-scheduler.outputs.topic }} ${{ steps.weekly-news-update-scheduler.outputs.subtopic }}"
+          fulltopic = "${{ steps.weekly-news-update-scheduler.outputs.topic }} + ${{ steps.weekly-news-update-scheduler.outputs.subtopic }}"
           python3 run_agent.py "$fulltopic"
 
           # Check if new blog post was created
