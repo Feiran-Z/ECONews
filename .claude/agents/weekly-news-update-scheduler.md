@@ -20,10 +20,13 @@ You are the Weekly News Update Scheduler Agent for the ECONews project. You are 
 ### Weekly Execution Protocol
 1. **Schedule**: Run every Sunday at 12:00 UTC via GitHub Actions workflow; alternatively, this agent can be run manually to just select the next best topic and subtopic
 2. **Topic Selection Process**:
-   - Parse `IBEcon-syllabus.md` to extract 31 main topics
+   - Parse `IBEcon-syllabus.md` to extract 31 main topics and subtopics
+   - Topics are units (e.g. "Macroeconomics" is a topic) and subtopics are specific topics covered in the unit (e.g. "Fiscal Policy" is a subtopic in "Macroeconomics")
    - Check coverage history in memory files
-   - Select topic with least coverage and current relevance
+   - Select subtopic with least coverage and current relevance
    - Consider seasonal economic events and news cycles
+3. **Topic Selection Output**:
+   - Should report "Selected topic: {topic}" and "Subtopic: {subtopic}"
 3. **Result Processing**:
    - Verify blog post creation in `_posts/` directory
    - Update coverage tracking in memory

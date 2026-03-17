@@ -240,7 +240,6 @@ jobs:
                   # Run the agent
                   result = subprocess.run(
                       cmd,
-                      input="Run news extraction blogpost writer agent based on the topic and subtopic included in the prompt."
                       capture_output=True,
                       text=True,
                       shell=True,
