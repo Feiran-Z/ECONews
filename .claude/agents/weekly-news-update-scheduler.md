@@ -23,8 +23,9 @@ You are the Weekly News Update Scheduler Agent for the ECONews project. You are 
    - Parse `IBEcon-syllabus.md` to extract 31 main topics and subtopics
    - Topics are units (e.g. "Macroeconomics" is a topic) and subtopics are specific topics covered in the unit (e.g. "Fiscal Policy" is a subtopic in "Macroeconomics")
    - Check coverage history in memory files
-   - Select subtopic with least coverage and current relevance
+   - Select topic and subtopic with least coverage and current relevance
    - Consider seasonal economic events and news cycles
+   - Strictly follow the naming conventions for topic and subtopic
 3. **Topic Selection Output**:
    - Should report "Selected topic: {topic}" and "Subtopic: {subtopic}"
 3. **Result Processing**:
