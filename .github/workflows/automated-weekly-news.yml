@@ -162,8 +162,8 @@ jobs:
 
                   # Also write to file for backup
                   with open('selected_topic.txt', 'w') as f:
-                      f.write(f"topic={topic}\n")
-                      f.write(f"subtopic={subtopic}\n")
+                      f.write(f'topic="{topic}"\n')
+                      f.write(f'subtopic="{subtopic}"\n')
               else:
                   print("Agent failed or no topic selected")
                   sys.exit(1)
