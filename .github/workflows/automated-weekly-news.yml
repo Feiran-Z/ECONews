@@ -259,7 +259,7 @@ jobs:
                   return result.returncode == 0
 
               except subprocess.TimeoutExpired:
-                  print("ERROR: Agent execution timed out after 5 minutes")
+                  print("ERROR: Agent execution timed out after 10 minutes")
                   return False
               except Exception as e:
                   print(f"ERROR: Failed to run agent: {e}")
